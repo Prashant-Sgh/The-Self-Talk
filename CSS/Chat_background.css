@@ -1,0 +1,125 @@
+#User_profile {
+    position: absolute;
+    top: 25px;
+    height: 12vh;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: white;
+}
+
+#Options_content {
+    position: absolute;
+    /* background-color: azure; */
+    top: 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    row-gap: 10px;
+    right: 5%;
+}
+
+
+.Options {
+    position: relative;
+    display: none;
+    justify-content: space-between;
+    column-gap: 10px;
+    right: 8.5px;
+    width: 100%;
+}
+
+.show{
+    display: flex;
+}
+
+/* #Options_line {
+
+} */
+
+
+#Options_buttons {
+    box-sizing: border-box;
+    /* position: absolute; */
+    top: 30px;
+    right: 30px;
+    width: max-content;
+    height: calc(25px + 7px + 25px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: end;
+}
+
+#Options_buttons button {
+    box-sizing: border-box;
+    height: 25px;
+    font-family: "Roboto";
+    font-size: 11px;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    background-color: #354251;
+}
+
+#Options_buttons button:hover {
+    transition-delay: 80ms;
+    transition-duration: 150ms;
+    color: black;
+    background-color: #B0D37A;
+}
+
+#Option_storage_button {
+    width: 64px;
+}
+
+#Option_clear_chat_button{
+    width: 77px;
+}
+
+#Chat_box {
+    position: absolute;
+    background-color: #1C2B3B;
+    border-radius: 7px;
+    bottom: 100px;
+    width: 92%;
+    /* min-height: 390px; */
+    height: 70%;
+}
+
+#Message_input_box {
+    position: absolute;
+    bottom: 25px;
+    height: 45px;
+    width: 82%;
+    border-radius: 34px;
+    background-color: #354251;
+    border: 1px solid #4F5A68;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#User_icon {
+    height: 30px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    margin-left: 10px;
+    background-color: aliceblue;
+}
+
+#Message_texts {
+    height: 38px;
+    width: 88%;
+    background-color: transparent;
+    border: none;
+}
+
+#Message_texts::placeholder{
+    color: #868D97;
+}
+
+#Send_button {
+    margin: 10px 23px 10px 7px;
+    background-color: transparent;
+    border: none;
+}

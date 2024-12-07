@@ -1,0 +1,38 @@
+*{
+    margin: 0;
+}
+
+#background
+{
+    background-color: black;
+    height: 100vh;
+    width: 100vw;
+}
+
+#Side_menu_container 
+{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 100vh;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #011627;
+}
+
+#Chat_background 
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    right: 2vw;
+    bottom: 0px;
+    height: 95vh;
+    width: 70vw;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    background-color: #011627;
+}
