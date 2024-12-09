@@ -31,6 +31,10 @@
     font-size: 14px;
 }
 
+#Menu_button:hover {
+    cursor: pointer;
+}
+
 .Menu_content{
     position: absolute;
     display: none;
@@ -71,6 +75,7 @@
 }
 
 .Menu_list:hover {
+    cursor: pointer;
     background-color: #B0D37A;
     color: black;
     border-color: #B0D37A;

@@ -28,6 +28,10 @@
     width: 100%;
 }
 
+#Option_button:hover {
+    cursor: pointer;
+}
+
 .show{
     display: flex;
 }
@@ -62,6 +66,7 @@
 }
 
 #Options_buttons button:hover {
+    cursor: pointer;
     transition-delay: 80ms;
     transition-duration: 150ms;
     color: black;
