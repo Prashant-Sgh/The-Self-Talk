@@ -1,0 +1,93 @@
+
+  .clock-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Main clock circle */
+  .clock {
+    position: relative;
+    width: 100px;
+    aspect-ratio: 1;
+    border: 1px solid #fff; /* Subtle border */
+    border-radius: 50%;
+    background: rgb(255, 255, 255); /* Dark background */
+    background-image: url(/ASSETS/Clock_dial.png);
+    background-size: cover;
+    background-position: center;
+    /* box-shadow: 0 0 25px rgba(0, 0, 0, 0.3), inset 0 0 30px rgba(0, 0, 0, 0.5); */
+  }
+  
+  /* Center dot */
+  .center-dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    background-color: #000000; /* Clean white dot */
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Clock hands */
+  .hour-hand, .minute-hand, .second-hand {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform-origin: 50% 100%;
+    transform: translateX(-50%);
+    transition-timing-function: ease-in-out;
+    transition-duration: 0s; /* Smooth transitions for the hands */
+  }
+  
+  /* Hour hand */
+  .hour-hand {
+    width: 4px;
+    height: 24px;
+    background-color: #011627; /* White for a clean look */
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Minute hand */
+  .minute-hand {
+    width: 3px;
+    height: 32px;
+    background-color: #011627; /* White to match the hour hand */
+    border-radius: 3px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Second hand */
+  .second-hand {
+    width: 1px;
+    height: 36px;
+    background-color: #e74c3c; /* A bright red color for the second hand */
+    border-radius: 1px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  
+  /* Subtle borders at the top and bottom of the clock */
+  .clock:before,
+  .clock:after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    width: 1px;
+    height: 4px;
+    background-color: #fff; /* Minimal top/bottom borders */
+    transform: translateX(-50%);
+  }
+  
+  .clock:before {
+    top: 6px;
+  }
+  
+  .clock:after {
+    bottom: 6px;
+  }
+  

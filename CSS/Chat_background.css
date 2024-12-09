@@ -77,13 +77,19 @@
 }
 
 #Chat_box {
+    box-sizing: border-box;
     position: absolute;
     background-color: #1C2B3B;
     border-radius: 7px;
     bottom: 100px;
     width: 92%;
-    /* min-height: 390px; */
     height: 70%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: end;
+    row-gap: 6px;
 }
 
 #Message_input_box {
