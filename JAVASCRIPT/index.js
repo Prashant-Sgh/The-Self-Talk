@@ -79,10 +79,61 @@ function Ready_to_load() {
             const Options = document.getElementById('Options');
             Options.classList.toggle('show');
         }
-        else
-            console.log('Sahi jgha click karo!!');
+        // else
+        //     console.log('Sahi jgha click karo!!');
     })
 
+
+    const Send_button = document.getElementById('Send_button');
+
+
+    let Chat_history = JSON.parse(localStorage.getItem('History'));
+
+
+    const Chat_box = document.getElementById('Chat_box');
+
+    let Messages_array = [];
+    if (Chat_history) {
+        for (let element = 0; element < Chat_history.length; element++) {
+            const chat = Chat_history[element];
+            console.log(chat);
+            const row_div = document.createElement('div');
+            row_div.classList.add('row');
+            const message_div = document.createElement('div');
+            row_div.appendChild(message_div);
+            message_div.classList.add('message');
+            const messages = document.querySelectorAll('.message');
+            message_div.textContent = chat;
+
+            Chat_box.appendChild(row_div);
+
+
+            Messages_array.push(chat);
+
+        }
+    }
+
+    Send_button.addEventListener('click', function () {Send_message()});
+
+    function Send_message() {
+        console.log('You just clicked send....');
+        let message = Message_texts.value.trim();
+        Messages_array.push(message);
+        localStorage.setItem("History", JSON.stringify(Messages_array));
+        console.log("message", Messages_array);
+        const row_div = document.createElement('div');
+        row_div.classList.add('row');
+        const message_div = document.createElement('div');
+        message_div.classList.add('message');
+        message_div.textContent = message
+        const time_div = document.createElement('div');
+        row_div.appendChild(message_div);
+        time_div.classList.add('time');
+        time_div.textContent = "09:45 am";
+        row_div.appendChild(time_div);
+        Chat_box.appendChild(row_div);
+
+    }
 
 }
 
