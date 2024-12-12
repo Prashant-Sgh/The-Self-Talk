@@ -127,6 +127,7 @@ function Ready_to_load() {
     function Send_message() {
         console.log('You just clicked send....');
 
+        console.log((new Date()).getDate(), (new Date()).getMonth());
         let contain_date = false;
         for (let child = 0; child < (Chat_box.children).length; child++) {
             const element = (Chat_box.children)[child];
@@ -138,7 +139,7 @@ function Ready_to_load() {
         if (contain_date === false) {
             const Day_div = document.createElement('div');
             Day_div.classList.add('Day');
-            Day_div.textContent = "Today";
+            Day_div.textContent = `Today or ${(new Date()).getDate()} - ${(new Date()).getFullYear()}`;
             Chat_box.appendChild(Day_div);
         }
 
