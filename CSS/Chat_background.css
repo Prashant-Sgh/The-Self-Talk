@@ -99,13 +99,15 @@
 }
 
 #Chat_box::-webkit-scrollbar {
-    /* display: none; */
-    background-color: #2a3949;
-    /* border-radius: 5px; */
-    width: 10px;
+    background: #1C2B3B;
+    border-radius: 5px;
+    width: 5px;
 }
+
 #Chat_box::-webkit-scrollbar-thumb {
-    background: rgb(44, 44, 44);
+    width: 2px;
+    border-radius: 10px;
+    background-color: #354251;
 }
 
 #Message_input_box {
@@ -139,7 +141,13 @@
     border: none;
     padding: 11px 12px;
     line-height: 135%;
-    letter-spacing: 1.5px;
+    /* overflow: auto; */
+    /* scroll-behavior: auto; */
+    /* letter-spacing: 1.5px; */
+}
+#Message_texts::-webkit-scrollbar {
+    background: #2a3949;
+    width: 1px;
 }
 #Message_texts:focus {
     border: none;
