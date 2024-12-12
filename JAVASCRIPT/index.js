@@ -126,6 +126,23 @@ function Ready_to_load() {
 
     function Send_message() {
         console.log('You just clicked send....');
+
+        let contain_date = false;
+        for (let child = 0; child < (Chat_box.children).length; child++) {
+            const element = (Chat_box.children)[child];
+            console.log("CHILD NODES ====", element);
+            if (element.classList.contains('Day')) {
+                contain_date = true;                
+            }
+        }
+        if (contain_date === false) {
+            const Day_div = document.createElement('div');
+            Day_div.classList.add('Day');
+            Day_div.textContent = "Today";
+            Chat_box.appendChild(Day_div);
+        }
+
+
         let message = Message_texts.value.trim();
         Message_texts.value = "";
         Messages_array.push(message);
@@ -166,7 +183,25 @@ function Ready_to_load() {
             }
         }
     })
+
+    // CLEAR CHAT
+
+    Option_clear_chat_button.addEventListener('click', function() {
+        localStorage.clear();
+        Chat_box.innerHTML = "";
+        Messages_array.length = 0;
+        Time_array.length = 0;
+        console.log("Chat cleared");
+    });
 }
+
+// function Clear_chat() {
+//     localStorage.clear();
+//     Chat_box.innerHTML = "";
+//     Messages_array.length = 0;
+//     Time_array.length = 0;
+//     console.log("Chat cleared");
+// }
 
 function ClockWorkingFunction() {
 
