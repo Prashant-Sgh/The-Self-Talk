@@ -88,15 +88,18 @@ function Ready_to_load() {
 
 
     let Chat_history = JSON.parse(localStorage.getItem('History'));
+    let Chat_history_Times = JSON.parse(localStorage.getItem('History_Times'));
 
 
     const Chat_box = document.getElementById('Chat_box');
 
     let Messages_array = [];
+    let Time_array = [];
     if (Chat_history) {
         for (let element = 0; element < Chat_history.length; element++) {
+            // For MESSAGES
             const chat = Chat_history[element];
-            console.log(chat);
+            // console.log(chat);
             const row_div = document.createElement('div');
             row_div.classList.add('row');
             const message_div = document.createElement('div');
@@ -104,20 +107,27 @@ function Ready_to_load() {
             message_div.classList.add('message');
             const messages = document.querySelectorAll('.message');
             message_div.textContent = chat;
-
-            Chat_box.appendChild(row_div);
-
-
             Messages_array.push(chat);
+
+            // For Times
+
+            const time = Chat_history_Times[element];
+            const time_div = document.createElement('div');
+            time_div.classList.add('time');
+            row_div.appendChild(time_div);
+            time_div.textContent = time;
+            Time_array.push(time);
+            Chat_box.appendChild(row_div);
 
         }
     }
 
-    Send_button.addEventListener('click', function () {Send_message()});
+    Send_button.addEventListener('click', function () { Send_message() });
 
     function Send_message() {
         console.log('You just clicked send....');
         let message = Message_texts.value.trim();
+        Message_texts.value = "";
         Messages_array.push(message);
         localStorage.setItem("History", JSON.stringify(Messages_array));
         console.log("message", Messages_array);
@@ -126,15 +136,36 @@ function Ready_to_load() {
         const message_div = document.createElement('div');
         message_div.classList.add('message');
         message_div.textContent = message
-        const time_div = document.createElement('div');
         row_div.appendChild(message_div);
+
+
+        // For TIME
+        const now = new Date();
+        const hour = ((now.getHours()) % 12).toString().padStart(2, '0');
+        const minute = (now.getMinutes()).toString().padStart(2, '0');
+        const am_pm = now.getHours() >= 12 ? "pm" : "am";
+        const time = `${hour}:${minute} ${am_pm}`
+        Time_array.push(time);
+        localStorage.setItem("History_Times", JSON.stringify(Time_array));
+        const time_div = document.createElement('div');
         time_div.classList.add('time');
-        time_div.textContent = "09:45 am";
+        time_div.textContent = time;
         row_div.appendChild(time_div);
         Chat_box.appendChild(row_div);
-
     }
 
+    // handleng the keys 
+
+    const textbox = document.getElementById('Message_texts');
+    textbox.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+            console.log("You presed enter");
+            if (e.shiftKey) {
+                console.log("You presed SHIFTT ! ! ! !");
+                Send_message();
+            }
+        }
+    })
 }
 
 function ClockWorkingFunction() {

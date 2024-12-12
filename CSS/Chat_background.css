@@ -93,8 +93,9 @@
     display: flex;
     flex-direction: column;
     align-items: end;
-    justify-content: end;
+    /* justify-content: end; */
     row-gap: 6px;
+    overflow-y: scroll;
 }
 
 #Message_input_box {
@@ -119,8 +120,12 @@
 }
 
 #Message_texts {
+    box-sizing: border-box;
     height: 38px;
     width: 88%;
+    text-indent: 12px;
+    resize: none;
+    color: #B0D37A;
     background-color: transparent;
     border: none;
 }

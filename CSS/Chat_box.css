@@ -16,12 +16,13 @@
 .row{
     color: white;
     display: flex;
+    align-items: baseline;
     column-gap: 20px;
 }
 
 .message{
     background-image: url(/ASSETS/send_message_bgrd.svg);
-    background-position: left;
+    background-position: right;
     background-size: cover;
     background-repeat: no-repeat;
     font-size: 10.5px;
@@ -36,4 +37,6 @@
     color: #A6CE69;
     font-size: 8px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    align-self: flex-end;
+    padding-bottom: 2px;
 }
