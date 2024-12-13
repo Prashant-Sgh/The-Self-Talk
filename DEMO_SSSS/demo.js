@@ -1,58 +1,37 @@
-const textbox = document.getElementById('textbox');
-const send = document.querySelector('send');
-
-const messagesarea = document.getElementById('messagesarea');
-
-
-let History_array = JSON.parse(localStorage.getItem("History"));
+const seconds = document.getElementById('second');
+const millSeconds = document.getElementById('millSecond')
+const minutes = document.getElementById('minute')
+const hours = document.getElementById('hour')
 
 
-let array = [];
 
-if (History_array) {
-    // let array = [];
-    console.log("Restored history", History_array);
-    for (let element = 0; element < History_array.length; element++) {
-        // const element = History_array[element];
-        const m = document.createElement('div');
-        m.textContent = History_array[element];
-        messagesarea.appendChild(m);
+setInterval(function () {second()}, 1000);
+setInterval(function () {millSecond()}, 100);
+setInterval(function () {minute()}, 1000);
+setInterval(function () {hour()}, 1000);
 
-        array.push(History_array[element]);
-    }
-    // console.log("array present", History_array);
 
-} else {
-    let array = [];
+function hour() {
+    let now = new Date();
+    let hour = now.getHours();
+    hours.textContent = (24 - hour);
+}
+
+function minute() {
+    let now = new Date();
+    let minute = now.getMinutes();
+    minutes.textContent = (60 - minute);
 }
 
 
-function sendmessage() {
-    let message = textbox.value.trim();
-    array.push(message);
-    localStorage.setItem("History", JSON.stringify(array));
-    console.log("message", array);
-    // return "hello";
-    const m = document.createElement('div');
-    // console.log(message, m);
-    m.textContent = message;
-    // m.classlist.add('newtexts');
-    messagesarea.appendChild(m);
-    textbox.value = '';
-    // return message;
+function second() {
+    let now = new Date();
+    let second = now.getSeconds();
+    seconds.textContent = (60 - second);
 }
 
-// function restore_chat() {
-//     let array = [];
-//     console.log("Restored history", History_array);
-//     for (let element = 0; element < History_array.length; element++) {
-//         // const element = History_array[element];
-//         const m = document.createElement('div');
-//         m.textContent = History_array[element];
-//         messagesarea.appendChild(m);
-
-//         array.push(History_array[element]);
-//     }
-// }
-
-// console.log(sendmessage());
+function millSecond() {
+    let now = new Date();
+    let second = now.getMilliseconds();
+    millSeconds.textContent = (1000 - second);
+}

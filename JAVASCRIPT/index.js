@@ -87,39 +87,67 @@ function Ready_to_load() {
     const Send_button = document.getElementById('Send_button');
 
 
-    let Chat_history = JSON.parse(localStorage.getItem('History'));
-    let Chat_history_Times = JSON.parse(localStorage.getItem('History_Times'));
+    // let Chat_history = JSON.parse(localStorage.getItem('History'));
+    // let Chat_history_Times = JSON.parse(localStorage.getItem('History_Times'));
+    let Chat_HTML = JSON.parse(localStorage.getItem('Chat_HTML'));
 
 
     const Chat_box = document.getElementById('Chat_box');
 
-    let Messages_array = [];
-    let Time_array = [];
-    if (Chat_history) {
-        for (let element = 0; element < Chat_history.length; element++) {
-            // For MESSAGES
-            const chat = Chat_history[element];
-            // console.log(chat);
-            const row_div = document.createElement('div');
-            row_div.classList.add('row');
-            const message_div = document.createElement('div');
-            row_div.appendChild(message_div);
-            message_div.classList.add('message');
-            const messages = document.querySelectorAll('.message');
-            message_div.textContent = chat;
-            Messages_array.push(chat);
+    // let Messages_array = [];
+    // let Time_array = [];
+    if (Chat_HTML) {
+        Chat_box.innerHTML = Chat_HTML;
 
-            // For Times
+        const Day_div = document.querySelectorAll('.Day');
 
-            const time = Chat_history_Times[element];
-            const time_div = document.createElement('div');
-            time_div.classList.add('time');
-            row_div.appendChild(time_div);
-            time_div.textContent = time;
-            Time_array.push(time);
-            Chat_box.appendChild(row_div);
+        const now = new Date();
+        const date = String(now.getDate());
+        const month = String(now.getMonth());
+        const year = String(now.getFullYear());
 
+        const Today = (`${date}th, ${month} ${year}`);
+        const Yesterday = (`${(Number(date) - 1)}th, ${month} ${year}`);
+
+        // console.log(Yesterday);
+        for (let Day = 0; Day < Day_div.length; Day++) {
+            // console.log("vvvvvvvvvvvvv");
+            let element = Day_div[Day];
+            let ID = element.id;
+            if (ID === Today) {
+                element.textContent = "Today";
+            } else if (ID === Yesterday) {
+                element.textContent = "Yesterday";
+            }
+            else {
+                element.textContent = ID;
+            }
         }
+
+        // for (let element = 0; element < Chat_HTML.length; element++) {
+        //     // For MESSAGES
+        //     console.log("Chat_Box inner html = ", Chat_HTML);
+        //     const chat = Chat_history[element];
+        //     const row_div = document.createElement('div');
+        //     row_div.classList.add('row');
+        //     const message_div = document.createElement('div');
+        //     row_div.appendChild(message_div);
+        //     message_div.classList.add('message');
+        //     const messages = document.querySelectorAll('.message');
+        //     message_div.textContent = chat;
+        //     Messages_array.push(chat);
+
+        //     // For Times
+
+        //     const time = Chat_history_Times[element];
+        //     const time_div = document.createElement('div');
+        //     time_div.classList.add('time');
+        //     row_div.appendChild(time_div);
+        //     time_div.textContent = time;
+        //     Time_array.push(time);
+        //     Chat_box.appendChild(row_div);
+
+        // }
     }
 
     Send_button.addEventListener('click', function () { Send_message() });
@@ -133,22 +161,29 @@ function Ready_to_load() {
             const element = (Chat_box.children)[child];
             console.log("CHILD NODES ====", element);
             if (element.classList.contains('Day')) {
-                contain_date = true;                
+                contain_date = true;
             }
         }
         if (contain_date === false) {
+            const now = new Date();
+            const date = String(now.getDate());
+            const month = String(now.getMonth());
+            const year = String(now.getFullYear());
+
             const Day_div = document.createElement('div');
             Day_div.classList.add('Day');
-            Day_div.textContent = `Today or ${(new Date()).getDate()} - ${(new Date()).getFullYear()}`;
+            Day_div.textContent = 'Today';
+            Day_div.id = `${date}th, ${month} ${year}`;
+            // console.log("Day_div.id =======", Day_div.id);
             Chat_box.appendChild(Day_div);
         }
 
 
         let message = Message_texts.value.trim();
         Message_texts.value = "";
-        Messages_array.push(message);
-        localStorage.setItem("History", JSON.stringify(Messages_array));
-        console.log("message", Messages_array);
+        // Messages_array.push(message);
+        // localStorage.setItem("History", JSON.stringify(Messages_array));
+        // console.log("message", Messages_array);
         const row_div = document.createElement('div');
         row_div.classList.add('row');
         const message_div = document.createElement('div');
@@ -163,13 +198,17 @@ function Ready_to_load() {
         const minute = (now.getMinutes()).toString().padStart(2, '0');
         const am_pm = now.getHours() >= 12 ? "pm" : "am";
         const time = `${hour}:${minute} ${am_pm}`
-        Time_array.push(time);
-        localStorage.setItem("History_Times", JSON.stringify(Time_array));
+        // Time_array.push(time);
+        // localStorage.setItem("History_Times", JSON.stringify(Time_array));
         const time_div = document.createElement('div');
         time_div.classList.add('time');
         time_div.textContent = time;
         row_div.appendChild(time_div);
         Chat_box.appendChild(row_div);
+
+        // UPDATING CHAT IN LOCAL STORAGE AT THE END OF "SEND" FUNCTION
+        let Chat_HTML = Chat_box.innerHTML;
+        localStorage.setItem("Chat_HTML", JSON.stringify(Chat_HTML));
     }
 
     // handleng the keys 
@@ -187,8 +226,10 @@ function Ready_to_load() {
 
     // CLEAR CHAT
 
-    Option_clear_chat_button.addEventListener('click', function() {
-        localStorage.clear();
+    Option_clear_chat_button.addEventListener('click', function () {
+        localStorage.removeItem('Chat_HTML');
+        // localStorage.removeItem('History');
+        // localStorage.removeItem('History_Times');
         Chat_box.innerHTML = "";
         Messages_array.length = 0;
         Time_array.length = 0;

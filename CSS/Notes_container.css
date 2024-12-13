@@ -1,0 +1,75 @@
+.Notes_container {
+
+    position: absolute;
+    top: 320px;
+
+    box-sizing: border-box;
+    width: 223px;
+    height: min-content;
+    padding: 8px 12px;
+    background-color: #1C2B3B;
+    border-radius: 6px;
+    border: 1px solid #4F5A68;
+
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 7px;
+}
+
+.Notes_heading{
+    box-sizing: border-box;
+    padding: 0 10px;
+    width: fit-content;
+    height: 17px;
+    font-family: "Poppins";
+    font-size: 9px;
+    font-weight: 500;
+    background-color: black;
+    border: 1px solid white;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+}
+
+.Timmer{ 
+    height: 35px;
+    width: 199px;
+    background-color: #1C2B3B;
+    border: 1px solid #4F5A68;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.Timmer .Timmer_Day, .Timmer_Hour, .Timmer_Minutes, .Timmer_Seconds {
+    box-sizing: border-box;
+    height: 25.8px;
+    width: 35px;
+    border-radius: 3px;
+    background-color: #B0D37A;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: 'segoe UI';
+    font-family: "Poppins";
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.Timmer .Timmer_Hour{
+    background-color: #BBD98B;
+}
+
+.Timmer .Timmer_Minutes{
+    background-color: #CFE4AC;
+}
+
+.Timmer .Timmer_Seconds{
+    background-color: #D9E9BC;
+}
