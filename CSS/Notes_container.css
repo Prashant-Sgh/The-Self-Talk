@@ -1,5 +1,4 @@
 .Notes_container {
-
     position: absolute;
     top: 320px;
 
@@ -14,27 +13,30 @@
     display: flex;
     flex-direction: column;
     align-items: start;
-    gap: 7px;
+    row-gap: 7px;
 }
 
 .Notes_heading{
     box-sizing: border-box;
-    padding: 0 10px;
+    padding: 0px 8px 2px 8px;
     width: fit-content;
-    height: 17px;
-    font-family: "Poppins";
-    font-size: 9px;
-    font-weight: 500;
-    background-color: black;
+    height: 20px;
+    font-family: "Roboto";
+    font-family: "Segoe UI";
+    font-size: 12px;
+    font-weight: 400;
+    background-color: #BBD98B;
     border: 1px solid white;
-    color: white;
+    color: black;
+    /* letter-spacing: 0.1px; */
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 2px;
+    border-radius: 3px;
 }
 
 .Timmer{ 
+    box-sizing: border-box;
     height: 35px;
     width: 199px;
     background-color: #1C2B3B;
@@ -50,7 +52,7 @@
     width: 35px;
     border-radius: 3px;
     background-color: #B0D37A;
-    color: white;
+    color: #011627;
 
     display: flex;
     align-items: center;
@@ -72,4 +74,19 @@
 
 .Timmer .Timmer_Seconds{
     background-color: #D9E9BC;
+}
+
+.Notes_text {
+    box-sizing: border-box;
+    width: 199px;
+    padding: 4px 8px;
+    background-color: #D9E9BC;
+    border-radius: 2px;
+    height: fit-content;
+    /* font-family: "Roboto"; */
+    font-family: "Poppins";
+    font-weight: 400;
+    font-size: 9px;
+    letter-spacing: 0.8px;
+    word-spacing: 0.4ch;
 }
