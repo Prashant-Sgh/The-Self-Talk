@@ -46,7 +46,7 @@
     align-items: center;
 }
 
-.Timmer .Timmer_Day, .Timmer_Hour, .Timmer_Minutes, .Timmer_Seconds {
+.Timmer .Timmer_Day, .Timmer_Hour, .Timmer_Minute, .Timmer_Second {
     box-sizing: border-box;
     height: 25.8px;
     width: 35px;
@@ -61,18 +61,24 @@
     font-family: 'segoe UI';
     font-family: "Poppins";
     font-size: 1.1rem;
-    font-weight: 700;
+    /* font-weight: 700; */
+}
+.Timmer .Timmer_Day{
+    font-weight: 900;
 }
 
 .Timmer .Timmer_Hour{
+    font-weight: 700;
     background-color: #BBD98B;
 }
 
-.Timmer .Timmer_Minutes{
+.Timmer .Timmer_Minute{
+    font-weight: 500;
     background-color: #CFE4AC;
 }
 
-.Timmer .Timmer_Seconds{
+.Timmer .Timmer_Second{
+    font-weight: 300;
     background-color: #D9E9BC;
 }
 

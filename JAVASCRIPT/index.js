@@ -157,10 +157,18 @@ function Ready_to_load() {
 
         console.log((new Date()).getDate(), (new Date()).getMonth());
         let contain_date = false;
+
+        const noww = new Date();
+        const date = String(noww.getDate());
+        const month = String(noww.getMonth());
+        const year = String(noww.getFullYear());
+
+        const Today = (`${date}th, ${month} ${year}`);
+
         for (let child = 0; child < (Chat_box.children).length; child++) {
             const element = (Chat_box.children)[child];
-            console.log("CHILD NODES ====", element);
-            if (element.classList.contains('Day')) {
+            // console.log("CHILD NODES ====", element);
+            if (element.id === Today) {
                 contain_date = true;
             }
         }
@@ -218,6 +226,7 @@ function Ready_to_load() {
         if (e.key === 'Enter') {
             console.log("You presed enter");
             if (e.shiftKey) {
+                e.preventDefault();
                 console.log("You presed SHIFTT ! ! ! !");
                 Send_message();
             }
