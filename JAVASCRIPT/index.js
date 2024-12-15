@@ -74,28 +74,25 @@ function Ready_to_load() {
             const Menu_content = document.getElementById('Menu_content');
             Menu_content.classList.toggle('show');
         }
+        else if (ID === 'Add_a_new_note') {
+            Add_A_New_Note();
+        }
         else if (ID === 'Option_button') {
             console.log("You clicked Options");
             const Options = document.getElementById('Options');
             Options.classList.toggle('show');
         }
-        // else
-        //     console.log('Sahi jgha click karo!!');
     })
 
 
     const Send_button = document.getElementById('Send_button');
 
 
-    // let Chat_history = JSON.parse(localStorage.getItem('History'));
-    // let Chat_history_Times = JSON.parse(localStorage.getItem('History_Times'));
     let Chat_HTML = JSON.parse(localStorage.getItem('Chat_HTML'));
 
 
     const Chat_box = document.getElementById('Chat_box');
 
-    // let Messages_array = [];
-    // let Time_array = [];
     if (Chat_HTML) {
         Chat_box.innerHTML = Chat_HTML;
 
@@ -109,9 +106,7 @@ function Ready_to_load() {
         const Today = (`${date}th, ${month} ${year}`);
         const Yesterday = (`${(Number(date) - 1)}th, ${month} ${year}`);
 
-        // console.log(Yesterday);
         for (let Day = 0; Day < Day_div.length; Day++) {
-            // console.log("vvvvvvvvvvvvv");
             let element = Day_div[Day];
             let ID = element.id;
             if (ID === Today) {
@@ -123,31 +118,6 @@ function Ready_to_load() {
                 element.textContent = ID;
             }
         }
-
-        // for (let element = 0; element < Chat_HTML.length; element++) {
-        //     // For MESSAGES
-        //     console.log("Chat_Box inner html = ", Chat_HTML);
-        //     const chat = Chat_history[element];
-        //     const row_div = document.createElement('div');
-        //     row_div.classList.add('row');
-        //     const message_div = document.createElement('div');
-        //     row_div.appendChild(message_div);
-        //     message_div.classList.add('message');
-        //     const messages = document.querySelectorAll('.message');
-        //     message_div.textContent = chat;
-        //     Messages_array.push(chat);
-
-        //     // For Times
-
-        //     const time = Chat_history_Times[element];
-        //     const time_div = document.createElement('div');
-        //     time_div.classList.add('time');
-        //     row_div.appendChild(time_div);
-        //     time_div.textContent = time;
-        //     Time_array.push(time);
-        //     Chat_box.appendChild(row_div);
-
-        // }
     }
 
     Send_button.addEventListener('click', function () { Send_message() });
@@ -167,7 +137,6 @@ function Ready_to_load() {
 
         for (let child = 0; child < (Chat_box.children).length; child++) {
             const element = (Chat_box.children)[child];
-            // console.log("CHILD NODES ====", element);
             if (element.id === Today) {
                 contain_date = true;
             }
@@ -182,7 +151,6 @@ function Ready_to_load() {
             Day_div.classList.add('Day');
             Day_div.textContent = 'Today';
             Day_div.id = `${date}th, ${month} ${year}`;
-            // console.log("Day_div.id =======", Day_div.id);
             Chat_box.appendChild(Day_div);
         }
 
@@ -244,15 +212,82 @@ function Ready_to_load() {
         Time_array.length = 0;
         console.log("Chat cleared");
     });
-}
 
-// function Clear_chat() {
-//     localStorage.clear();
-//     Chat_box.innerHTML = "";
-//     Messages_array.length = 0;
-//     Time_array.length = 0;
-//     console.log("Chat cleared");
-// }
+
+
+
+    // ADD A NEW NOTE
+    function Add_A_New_Note() {
+        // <div id="Notes_container">
+        //     <div class="Notes_container">
+        //         <div class="Notes_heading">Build timer</div>
+        //         <div class="Timmer">
+        //             <div class="Timmer_Day">0</div>
+        //             <div class="Timmer_Hour">0</div>
+        //             <div class="Timmer_Minute">0</div>
+        //             <div class="Timmer_Second">0</div>
+        //         </div>
+        //         <div class="Notes_text">
+        //             <ul>
+        //                 <li>Build this timer.</li>
+        //             </ul>
+        //         </div>
+        //     </div>
+        // </div>
+        const Notes_container = document.getElementById('Notes_container');
+        const Notes_container_div = document.createElement('div');
+        Notes_container_div.classList.add('Notes_container');
+        Notes_container.appendChild(Notes_container_div);
+
+        const Notes_heading_div = document.createElement('div');
+        Notes_heading_div.classList.add('Notes_heading');
+        Notes_heading_div.textContent = "Heading here";
+        Notes_container_div.appendChild(Notes_heading_div);
+
+        const Edit_button = document.createElement('button');
+        Edit_button.classList.add('Edit_button');
+        const Edit_icon = document.createElement('img');
+        Edit_icon.classList.add('Edit_icon');
+        Edit_icon.setAttribute('src', '/ASSETS/pencil.svg');
+        Edit_button.appendChild(Edit_icon);
+        Notes_container_div.appendChild(Edit_button);
+
+        const Notes_Timmer_div = document.createElement('div');
+        Notes_Timmer_div.classList.add('Timmer');
+        Notes_container_div.appendChild(Notes_Timmer_div);
+
+        const Timmer_Day_div = document.createElement('div');
+        Timmer_Day_div.classList.add('Timmer_Day');
+        Timmer_Day_div.textContent = "--";
+        const Timmer_Hour_div = document.createElement('div');
+        Timmer_Hour_div.classList.add('Timmer_Hour');
+        Timmer_Hour_div.textContent = "--";
+        const Timmer_Minute_div = document.createElement('div');
+        Timmer_Minute_div.classList.add('Timmer_Minute');
+        Timmer_Minute_div.textContent = "--";
+        const Timmer_Second_div = document.createElement('div');
+        Timmer_Second_div.classList.add('Timmer_Second');
+        Timmer_Second_div.textContent = "--";
+
+        Notes_Timmer_div.appendChild(Timmer_Day_div);
+        Notes_Timmer_div.appendChild(Timmer_Hour_div);
+        Notes_Timmer_div.appendChild(Timmer_Minute_div);
+        Notes_Timmer_div.appendChild(Timmer_Second_div);
+
+        const Notes_text_div = document.createElement('div');
+        Notes_text_div.classList.add('Notes_text');
+
+        const ul = document.createElement('ul');
+        Notes_text_div.appendChild(ul);
+
+        const paragraph = document.createElement('p');
+        ul.appendChild(paragraph);
+
+
+        Notes_container_div.appendChild(Notes_text_div);
+    }
+
+}
 
 function ClockWorkingFunction() {
 

@@ -8,7 +8,7 @@ function load_now() {
     const Timmer_Hours = document.querySelector('.Timmer_Hour');
     const Timmer_Minutes = document.querySelector('.Timmer_Minute');
     const Timmer_Seconds = document.querySelector('.Timmer_Second');
-    let target_date = Number(14);
+    let target_date = Number(17);
 
 
     setInterval(function () {

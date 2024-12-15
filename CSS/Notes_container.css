@@ -1,6 +1,14 @@
-.Notes_container {
+#Notes_container {
     position: absolute;
-    top: 320px;
+    bottom: 190px;
+    border-bottom: 1px solid yellowgreen;
+    padding-bottom: 18px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.Notes_container {
 
     box-sizing: border-box;
     width: 223px;
@@ -16,6 +24,13 @@
     row-gap: 7px;
 }
 
+.Notes_container .Edit_button{
+    position: absolute;
+    background-color: transparent;
+    right: 12px;
+    border: none;
+}
+
 .Notes_heading{
     box-sizing: border-box;
     padding: 0px 8px 2px 8px;
@@ -26,7 +41,7 @@
     font-size: 12px;
     font-weight: 400;
     background-color: #BBD98B;
-    border: 1px solid white;
+    border: 1px solid yellowgreen;
     color: black;
     /* letter-spacing: 0.1px; */
     display: flex;
@@ -41,6 +56,7 @@
     width: 199px;
     background-color: #1C2B3B;
     border: 1px solid #4F5A68;
+    border: 1px solid rgb(109, 127, 73);
     display: flex;
     justify-content: space-around;
     align-items: center;
