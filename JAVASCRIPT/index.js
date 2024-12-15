@@ -77,6 +77,13 @@ function Ready_to_load() {
         else if (ID === 'Add_a_new_note') {
             Add_A_New_Note();
         }
+        else if (event.target.classList.contains('Edit_icon')) {
+            const Notes_container = event.target.closest('.Notes_container');
+            const Is_Editable = Notes_container.getAttribute('contenteditable') === 'true';
+            // Notes_container.contentEditable = true;
+            Notes_container.setAttribute('contenteditable', !Is_Editable);
+            console.log("Hello, world!");
+        }
         else if (ID === 'Option_button') {
             console.log("You clicked Options");
             const Options = document.getElementById('Options');
