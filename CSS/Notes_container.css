@@ -3,9 +3,25 @@
     bottom: 190px;
     border-bottom: 1px solid yellowgreen;
     padding-bottom: 18px;
+    padding-right: 8px;
+    margin-left: 12px;
     display: flex;
     flex-direction: column;
     row-gap: 10px;
+    max-height: 500px;
+    overflow-x: auto;
+}
+
+#Notes_container::-webkit-scrollbar {
+    background: #1C2B3B;
+    border-radius: 5px;
+    width: 3px;
+}
+
+#Notes_container::-webkit-scrollbar-thumb {
+    width: 2px;
+    border-radius: 10px;
+    background-color: #354251;
 }
 
 .Notes_container {
@@ -26,9 +42,39 @@
 
 .Notes_container .Edit_button{
     position: absolute;
-    background-color: transparent;
+    background-color: rgb(40, 53, 76);
     right: 12px;
     border: none;
+    border-radius: 50%;
+    padding-top: 5px;
+}
+.Notes_container .Edit_button:hover{
+    cursor: pointer;
+}
+
+
+.Save_button{
+    /* display: none; */
+    /* background-color: #192025; */
+    /* color: #B0D37A; */
+}
+
+.Save_icon{
+    display: none;
+    /* border: 1px solid red; */
+}
+
+.Edit_icon{
+    /* border: 1px solid red; */
+    /* background-color: aqua; */
+}
+
+.edit_toggle{
+    display: none;
+}
+
+.save_toggle{
+    display: block;
 }
 
 .Notes_heading{

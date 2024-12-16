@@ -65,6 +65,15 @@ content_loaded()
 
 function Ready_to_load() {
 
+
+    //Load notes from local Storage
+    // JSON.parse(localStorage.getItem("Notes_HTML"));
+    if (localStorage.getItem("Notes_HTML")) {
+        (document.getElementById('Notes_container')).innerHTML = JSON.parse(localStorage.getItem("Notes_HTML"));
+    }
+
+
+
     // const Menu_button = document.getElementById('Menu_button');
 
     document.addEventListener('click', function (event) {
@@ -77,12 +86,19 @@ function Ready_to_load() {
         else if (ID === 'Add_a_new_note') {
             Add_A_New_Note();
         }
-        else if (event.target.classList.contains('Edit_icon')) {
+        else if (event.target.classList.contains('Edit_button')) {
             const Notes_container = event.target.closest('.Notes_container');
             const Is_Editable = Notes_container.getAttribute('contenteditable') === 'true';
-            // Notes_container.contentEditable = true;
             Notes_container.setAttribute('contenteditable', !Is_Editable);
-            console.log("Hello, world!");
+            const Edit_icon = Notes_container.querySelector('.Edit_icon');
+            const Save_icon = Notes_container.querySelector('.Save_icon');
+            Edit_icon.classList.toggle('edit_toggle');
+            Save_icon.classList.toggle('save_toggle');
+            console.log('Target =', event.target.classList);
+        }
+        else if (event.target.classList.contains('Save_icon')) {
+            Update_notes();
+            console.log("Notes updated in local storage!");
         }
         else if (ID === 'Option_button') {
             console.log("You clicked Options");
@@ -93,13 +109,8 @@ function Ready_to_load() {
 
 
     const Send_button = document.getElementById('Send_button');
-
-
     let Chat_HTML = JSON.parse(localStorage.getItem('Chat_HTML'));
-
-
     const Chat_box = document.getElementById('Chat_box');
-
     if (Chat_HTML) {
         Chat_box.innerHTML = Chat_HTML;
 
@@ -228,6 +239,7 @@ function Ready_to_load() {
         // <div id="Notes_container">
         //     <div class="Notes_container">
         //         <div class="Notes_heading">Build timer</div>
+        //         <button class="Save_button"><img class="Save_icon" src="/ASSETS/check.svg" alt=""></button>
         //         <div class="Timmer">
         //             <div class="Timmer_Day">0</div>
         //             <div class="Timmer_Hour">0</div>
@@ -257,6 +269,14 @@ function Ready_to_load() {
         Edit_icon.classList.add('Edit_icon');
         Edit_icon.setAttribute('src', '/ASSETS/pencil.svg');
         Edit_button.appendChild(Edit_icon);
+        
+        // const Save_button = document.createElement('button');
+        // Save_button.classList.add('Save_button');
+        const Save_icon = document.createElement('img');
+        Save_icon.classList.add('Save_icon');
+        Save_icon.setAttribute('src', '/ASSETS/tick.svg');
+        Edit_button.appendChild(Save_icon);
+        // Notes_container_div.appendChild(Save_button);
         Notes_container_div.appendChild(Edit_button);
 
         const Notes_Timmer_div = document.createElement('div');
@@ -292,6 +312,16 @@ function Ready_to_load() {
 
 
         Notes_container_div.appendChild(Notes_text_div);
+    }
+
+    
+
+    //REMEMBER NOTES
+    // Update_notes()
+    function Update_notes() {
+        const Notes_container_box = document.getElementById('Notes_container');
+        const Notes = Notes_container_box.innerHTML;
+        localStorage.setItem("Notes_HTML", JSON.stringify(Notes));
     }
 
 }
