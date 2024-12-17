@@ -26,6 +26,7 @@
 
 .Notes_container {
 
+    position: relative;
     box-sizing: border-box;
     width: 223px;
     height: min-content;
@@ -38,6 +39,28 @@
     flex-direction: column;
     align-items: start;
     row-gap: 7px;
+}
+
+.Delete_note{
+    background-image: url(/ASSETS/delete.svg);
+    background-color: transparent;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: none;
+    height: 24px;
+    aspect-ratio: 1;
+    position: absolute;
+    align-self: center;
+    top: 6px;
+    right: 69px;
+    z-index: 100000000;
+
+    /* justify-items: center; */
+    /* justify-tracks: center; */
+    /* justify-content: center; */
+    /* justify-self: center; */
+    /* align-items: center; */
+    /* align-content: center; */
 }
 
 .Notes_container .Edit_button{
@@ -157,4 +180,9 @@
     font-size: 9px;
     letter-spacing: 0.8px;
     word-spacing: 0.4ch;
+}
+
+.Notes_text {
+    overflow-wrap: break-word;
+    /* color: red; */
 }

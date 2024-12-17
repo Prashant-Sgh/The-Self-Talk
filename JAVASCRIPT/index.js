@@ -85,11 +85,20 @@ function Ready_to_load() {
         }
         else if (ID === 'Add_a_new_note') {
             Add_A_New_Note();
+            Update_notes();
         }
         else if (event.target.classList.contains('Edit_button')) {
+            //MAKES THE CONTENT EDITABLE.
             const Notes_container = event.target.closest('.Notes_container');
-            const Is_Editable = Notes_container.getAttribute('contenteditable') === 'true';
-            Notes_container.setAttribute('contenteditable', !Is_Editable);
+
+            const Editables = Notes_container.querySelectorAll('.Editable');
+
+            Make_These_Editable(Editables);
+
+            // const Is_Editable = Notes_container.getAttribute('contenteditable') === 'true';
+            // Notes_container.setAttribute('contenteditable', !Is_Editable);
+
+            //THESE ARE FOR VISUAL CHANGES ON THAT PARTICULAR NOTE CARD
             const Edit_icon = Notes_container.querySelector('.Edit_icon');
             const Save_icon = Notes_container.querySelector('.Save_icon');
             Edit_icon.classList.toggle('edit_toggle');
@@ -99,6 +108,12 @@ function Ready_to_load() {
         else if (event.target.classList.contains('Save_icon')) {
             Update_notes();
             console.log("Notes updated in local storage!");
+        }
+        else if (event.target.classList.contains('Delete_note')) {
+            const Notes_container = event.target.closest('.Notes_container');
+            Notes_container.remove();
+            console.log("Notes Being deleted!");
+            Update_notes();
         }
         else if (ID === 'Option_button') {
             console.log("You clicked Options");
@@ -219,6 +234,17 @@ function Ready_to_load() {
         }
     })
 
+    //Make_These_Editable(Editables)
+
+    function Make_These_Editable(Editables) {
+        for (let elements = 0; elements < Editables.length; elements++) {
+            const element = Editables[elements];
+            const Is_Editable = element.getAttribute('contenteditable') === 'true';
+            element.setAttribute('contenteditable', !Is_Editable);
+        }
+    }
+
+
     // CLEAR CHAT
 
     Option_clear_chat_button.addEventListener('click', function () {
@@ -259,9 +285,13 @@ function Ready_to_load() {
         Notes_container.appendChild(Notes_container_div);
 
         const Notes_heading_div = document.createElement('div');
-        Notes_heading_div.classList.add('Notes_heading');
+        Notes_heading_div.classList.add('Notes_heading', 'Editable');
         Notes_heading_div.textContent = "Heading here";
         Notes_container_div.appendChild(Notes_heading_div);
+
+        const Delete_button = document.createElement('button');
+        Delete_button.classList.add('Delete_note');
+        Notes_container_div.appendChild(Delete_button);
 
         const Edit_button = document.createElement('button');
         Edit_button.classList.add('Edit_button');
@@ -269,7 +299,7 @@ function Ready_to_load() {
         Edit_icon.classList.add('Edit_icon');
         Edit_icon.setAttribute('src', '/ASSETS/pencil.svg');
         Edit_button.appendChild(Edit_icon);
-        
+
         // const Save_button = document.createElement('button');
         // Save_button.classList.add('Save_button');
         const Save_icon = document.createElement('img');
@@ -284,17 +314,17 @@ function Ready_to_load() {
         Notes_container_div.appendChild(Notes_Timmer_div);
 
         const Timmer_Day_div = document.createElement('div');
-        Timmer_Day_div.classList.add('Timmer_Day');
-        Timmer_Day_div.textContent = "--";
+        Timmer_Day_div.classList.add('Timmer_Day', 'Editable');
+        Timmer_Day_div.textContent = "1";
         const Timmer_Hour_div = document.createElement('div');
-        Timmer_Hour_div.classList.add('Timmer_Hour');
-        Timmer_Hour_div.textContent = "--";
+        Timmer_Hour_div.classList.add('Timmer_Hour', 'Editable');
+        Timmer_Hour_div.textContent = "0";
         const Timmer_Minute_div = document.createElement('div');
-        Timmer_Minute_div.classList.add('Timmer_Minute');
-        Timmer_Minute_div.textContent = "--";
+        Timmer_Minute_div.classList.add('Timmer_Minute', 'Editable');
+        Timmer_Minute_div.textContent = "0";
         const Timmer_Second_div = document.createElement('div');
-        Timmer_Second_div.classList.add('Timmer_Second');
-        Timmer_Second_div.textContent = "--";
+        Timmer_Second_div.classList.add('Timmer_Second', 'Editable');
+        Timmer_Second_div.textContent = "0";
 
         Notes_Timmer_div.appendChild(Timmer_Day_div);
         Notes_Timmer_div.appendChild(Timmer_Hour_div);
@@ -302,7 +332,7 @@ function Ready_to_load() {
         Notes_Timmer_div.appendChild(Timmer_Second_div);
 
         const Notes_text_div = document.createElement('div');
-        Notes_text_div.classList.add('Notes_text');
+        Notes_text_div.classList.add('Notes_text', 'Editable');
 
         const ul = document.createElement('ul');
         Notes_text_div.appendChild(ul);
@@ -314,7 +344,7 @@ function Ready_to_load() {
         Notes_container_div.appendChild(Notes_text_div);
     }
 
-    
+
 
     //REMEMBER NOTES
     // Update_notes()
