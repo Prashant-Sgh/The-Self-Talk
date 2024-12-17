@@ -4,11 +4,13 @@ setTimeout(function () {
 
 function load_now() {
 
-    const Timmer_Days = document.querySelector('.Timmer_Day');
-    const Timmer_Hours = document.querySelector('.Timmer_Hour');
-    const Timmer_Minutes = document.querySelector('.Timmer_Minute');
-    const Timmer_Seconds = document.querySelector('.Timmer_Second');
+    const Timmer_Days = document.querySelectorAll('.Timmer_Day');
+    const Timmer_Hours = document.querySelectorAll('.Timmer_Hour');
+    const Timmer_Minutes = document.querySelectorAll('.Timmer_Minute');
+    const Timmer_Seconds = document.querySelectorAll('.Timmer_Second');
     let target_date = Number(17);
+
+    // const Days_in_Timmer = document.querySelector('.Timmer_Day').textContent;
 
 
     setInterval(function () {
@@ -31,24 +33,34 @@ function load_now() {
     function Days() {
         let now = new Date();
         let date = now.getDate();
-        Timmer_Days.textContent = target_date - date;
+        Timmer_Days.forEach(Timmer_Day => {
+            Timmer_Day.textContent = target_date - date;
+        });
+        // Timmer_Days.textContent = Number(Days_in_Timmer) ;
+        // Timmer_Days.textContent = (Number(Days_in_Timmer) + date) - date;
     }
 
     function Hours() {
         let now = new Date();
         let hour = now.getHours();
-        Timmer_Hours.textContent = 24 - hour;
+        Timmer_Hours.forEach(Timmer_Hour => {
+            Timmer_Hour.textContent = 24 - hour;
+        });
     }
 
     function Minutes() {
         let now = new Date();
         let minute = now.getMinutes();
-        Timmer_Minutes.textContent = 60 - minute;
+        Timmer_Minutes.forEach(Timmer_Minute => {
+            Timmer_Minute.textContent = 60 - minute;
+        });
     }
 
     function Seconds() {
         let now = new Date();
         let second = now.getSeconds();
-        Timmer_Seconds.textContent = 60 - second;
+        Timmer_Seconds.forEach(Timmer_Second => {
+            Timmer_Second.textContent = 60 - second;
+        });
     }
 }
