@@ -90,30 +90,60 @@ function Ready_to_load() {
         else if (event.target.classList.contains('Edit_button')) {
             //MAKES THE CONTENT EDITABLE.
             const Notes_container = event.target.closest('.Notes_container');
-
             const Editables = Notes_container.querySelectorAll('.Editable');
-
             Make_These_Editable(Editables);
+            const Edit_button = Notes_container.querySelector('.Edit_button');
+            var currentBG = Edit_button.style.backgroundImage;
+            currentBG = currentBG.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
+            if (currentBG.includes('/ASSETS/pencil.svg')) {
+                Edit_button.style.backgroundImage = "url('/ASSETS/check.svg')";
+                console.log("Save it !!", currentBG);
+            } else if (currentBG.includes('/ASSETS/check.svg')) {
+                Edit_button.style.backgroundImage = "url('/ASSETS/pencil.svg')";
+                console.log("Save it !!", currentBG);
+            }
+            // Edit_button.classList.toggle('Edit_button_TOGGLE');
+            let count = 1;
+            console.log(count, " Hello");
+            count++;
 
             // const Is_Editable = Notes_container.getAttribute('contenteditable') === 'true';
             // Notes_container.setAttribute('contenteditable', !Is_Editable);
 
             //THESE ARE FOR VISUAL CHANGES ON THAT PARTICULAR NOTE CARD
-            const Edit_icon = Notes_container.querySelector('.Edit_icon');
-            const Save_icon = Notes_container.querySelector('.Save_icon');
-            Edit_icon.classList.toggle('edit_toggle');
-            Save_icon.classList.toggle('save_toggle');
-            console.log('Target =', event.target.classList);
+            // const Edit_icon = Notes_container.querySelector('.Edit_icon');
+            // const Save_icon = Notes_container.querySelector('.Save_icon');
+            // Edit_icon.classList.toggle('edit_toggle');
+            // Save_icon.classList.toggle('save_toggle');
+            // console.log('Target =', event.target.classList);
+
+            //THESE ARE TO CHANGE ICONS WITH EVERY CLICK
+            
         }
-        else if (event.target.classList.contains('Save_icon')) {
-            Update_notes();
-            console.log("Notes updated in local storage!");
-        }
+        // else if (event.target.classList.contains('Save_icon')) {
+        //     Update_notes();
+        //     // Save_icon.classList.toggle('save_toggle');
+        //     console.log("Notes updated in local storage!");
+        // }
         else if (event.target.classList.contains('Delete_note')) {
             const Notes_container = event.target.closest('.Notes_container');
-            Notes_container.remove();
-            console.log("Notes Being deleted!");
-            Update_notes();
+            Delete_Popup(Notes_container);
+            function Delete_Popup(Notes_container) {
+                const Delete_Popup_Window = document.getElementById('Delete_window');
+                Delete_Popup_Window.style.display = 'flex';
+                // const Delete_button = document.getElementById('Yes_Delete_Note');
+                document.addEventListener('click', function (source) {
+                    if (source.target.id === 'Yes_Delete_Note') {
+                        Notes_container.remove();
+                        console.log("Notes Being deleted!");
+                        Update_notes();
+                        Delete_Popup_Window.style.display = 'none';
+                    }
+                    else if (source.target.id === 'Cancel_Delete_Note') {
+                        Delete_Popup_Window.style.display = 'none';
+                    }
+                })
+            }
         }
         else if (ID === 'Option_button') {
             console.log("You clicked Options");
@@ -295,17 +325,14 @@ function Ready_to_load() {
 
         const Edit_button = document.createElement('button');
         Edit_button.classList.add('Edit_button');
-        const Edit_icon = document.createElement('img');
-        Edit_icon.classList.add('Edit_icon');
-        Edit_icon.setAttribute('src', '/ASSETS/pencil.svg');
-        Edit_button.appendChild(Edit_icon);
-
-        // const Save_button = document.createElement('button');
-        // Save_button.classList.add('Save_button');
-        const Save_icon = document.createElement('img');
-        Save_icon.classList.add('Save_icon');
-        Save_icon.setAttribute('src', '/ASSETS/tick.svg');
-        Edit_button.appendChild(Save_icon);
+        // const Edit_icon = document.createElement('img');
+        // Edit_icon.classList.add('Edit_icon');
+        // Edit_icon.setAttribute('src', '/ASSETS/pencil.svg');
+        // Edit_button.appendChild(Edit_icon);
+        // const Save_icon = document.createElement('img');
+        // Save_icon.classList.add('Save_icon');
+        // Save_icon.setAttribute('src', '/ASSETS/tick.svg');
+        // Edit_button.appendChild(Save_icon);
         // Notes_container_div.appendChild(Save_button);
         Notes_container_div.appendChild(Edit_button);
 

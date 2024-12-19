@@ -112,3 +112,51 @@
     border-radius: 50%;
     background-color: aliceblue;
 }
+
+#Delete_window{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 100vh;
+    width: 100vw;
+    /* background-color: red; */
+    /* display: flex; */
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+    backdrop-filter: blur(2px);
+}
+
+#Delete_Popup {
+    /* display: none; */
+    position: relative;
+    /* top: 200px;
+    left: 10px; */
+    height: 100px;
+    width: 300px;
+    background-color: #011627;
+    border-radius: 5px;
+    color: white;
+    font-family: 'Roboto';
+    font-family: Arial;
+    padding: 20px;
+}
+
+#Delete_buttons{
+    position: absolute;
+    display: flex;
+    gap: 25px;
+    bottom: 20px;
+    right: 30px;
+}
+
+#Delete_buttons button{
+    background-color: transparent;
+    border: none;
+    color: #B0D37A;
+}
+
+#Delete_buttons #Yes_Delete_Note{
+    color: red;
+}

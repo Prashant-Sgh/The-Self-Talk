@@ -6,6 +6,8 @@
 #background
 {
     background-color: black;
+    /* position: relative; */
+    /* overflow: visible; */
     height: 100vh;
     width: 100vw;
 }
@@ -21,14 +23,15 @@
     flex-direction: column;
     align-items: center;
     background-color: #011627;
+    z-index: 15;
 }
 
 #Chat_background 
 {
+    position: fixed;
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: fixed;
     right: 2vw;
     bottom: 0px;
     height: 95vh;
@@ -36,4 +39,6 @@
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     background-color: #011627;
+    /* background-color: white; */
+    z-index: 10;
 }
