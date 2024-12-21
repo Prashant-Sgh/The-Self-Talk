@@ -8,7 +8,7 @@
     display: flex;
     flex-direction: column;
     row-gap: 10px;
-    max-height: 500px;
+    max-height: 30vh;
     overflow-x: auto;
 }
 
@@ -95,23 +95,23 @@
     color: #B0D37A;
 } */
 
-.Save_icon{
-    /* display: none; */
-    /* border: 1px solid red; */
-}
+/* .Save_icon{
+    display: none;
+    border: 1px solid red;
+} */
 
 /* .Edit_icon{
     border: 1px solid red;
     background-color: aqua;
 } */
 
-.edit_toggle{
-    /* display: none; */
-}
+/* .edit_toggle{
+    display: none;
+} */
 
-.save_toggle{
-    /* display: block; */
-}
+/* .save_toggle{
+    display: block;
+} */
 
 .Notes_heading{
     box-sizing: border-box;
