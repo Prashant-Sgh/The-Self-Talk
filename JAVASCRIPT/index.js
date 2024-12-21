@@ -150,6 +150,11 @@ function Ready_to_load() {
             const Options = document.getElementById('Options');
             Options.classList.toggle('show');
         }
+        else if (event.target.classList.contains('Editable') === false) {
+            console.log('You just clicked on "Editable"');
+            //Saves the note and update them on local storage..
+            Save_and_Update_Notes();
+        }
     })
 
 
@@ -272,6 +277,31 @@ function Ready_to_load() {
             const Is_Editable = element.getAttribute('contenteditable') === 'true';
             element.setAttribute('contenteditable', !Is_Editable);
         }
+        Editables[0].focus();
+        Editables.forEach((div, index, Editables) => {
+            div.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const next_div = Editables[index+1];
+                    if (next_div) {
+                        next_div.focus();
+                    }else if(!next_div) {
+                        Save_and_Update_Notes();
+                    }
+                }
+            }) 
+        });
+    }
+
+    function Save_and_Update_Notes() {
+        const Editables = document.querySelectorAll('.Editable');
+        for (let elements = 0; elements < Editables.length; elements++) {
+            const element = Editables[elements];
+            // const Is_Editable = element.getAttribute('contenteditable') === 'true';
+            // element.setAttribute('contenteditable', !Is_Editable);
+            element.setAttribute('contenteditable', false);
+        }
+        Update_notes();
     }
 
 
@@ -369,6 +399,17 @@ function Ready_to_load() {
 
 
         Notes_container_div.appendChild(Notes_text_div);
+
+
+        Make_Only_Last_Note_Editable();
+
+    }
+
+    function Make_Only_Last_Note_Editable() {
+        const Notes_container = document.querySelectorAll('.Notes_container');
+        const Notes_container_Length = Notes_container.length;
+        const Editables = Notes_container[Notes_container_Length-1].querySelectorAll('.Editable');
+        Make_These_Editable(Editables);
     }
 
 

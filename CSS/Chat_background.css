@@ -88,7 +88,9 @@
     border-radius: 7px;
     bottom: 100px;
     width: 92%;
-    height: 70%;
+    /* height: 70%; */
+    /* height: 28.5rem; */
+    height: 63vh;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -113,7 +115,8 @@
 #Message_input_box {
     position: absolute;
     bottom: 25px;
-    height: 45px;
+    /* height: 45px; */
+    height: 5.6vh;
     width: 82%;
     border-radius: 34px;
     background-color: #354251;
