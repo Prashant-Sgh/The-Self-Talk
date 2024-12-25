@@ -87,6 +87,14 @@ function Ready_to_load() {
             Add_A_New_Note();
             Update_notes();
         }
+        // else if (ID != 'Menu_button') {
+        //     const Menu_content = document.getElementById('Menu_content');
+        //     if (Menu_content.style.display === 'flex') {
+        //         Menu_content.classList.toggle('show');
+        //         console.log("FALSE, --------");
+        //     }
+        //     console.log("FALSE, --------");
+        // }
         else if (event.target.classList.contains('Edit_button')) {
             //MAKES THE CONTENT EDITABLE.
             const Notes_container = event.target.closest('.Notes_container');
@@ -118,7 +126,7 @@ function Ready_to_load() {
             // console.log('Target =', event.target.classList);
 
             //THESE ARE TO CHANGE ICONS WITH EVERY CLICK
-            
+
         }
         // else if (event.target.classList.contains('Save_icon')) {
         //     Update_notes();
@@ -282,14 +290,14 @@ function Ready_to_load() {
             div.addEventListener('keydown', function (e) {
                 if (e.key === 'Enter') {
                     e.preventDefault();
-                    const next_div = Editables[index+1];
+                    const next_div = Editables[index + 1];
                     if (next_div) {
                         next_div.focus();
-                    }else if(!next_div) {
+                    } else if (!next_div) {
                         Save_and_Update_Notes();
                     }
                 }
-            }) 
+            })
         });
     }
 
@@ -370,23 +378,45 @@ function Ready_to_load() {
         Notes_Timmer_div.classList.add('Timmer');
         Notes_container_div.appendChild(Notes_Timmer_div);
 
-        const Timmer_Day_div = document.createElement('div');
-        Timmer_Day_div.classList.add('Timmer_Day', 'Editable');
-        Timmer_Day_div.textContent = "1";
-        const Timmer_Hour_div = document.createElement('div');
-        Timmer_Hour_div.classList.add('Timmer_Hour', 'Editable');
-        Timmer_Hour_div.textContent = "0";
-        const Timmer_Minute_div = document.createElement('div');
-        Timmer_Minute_div.classList.add('Timmer_Minute', 'Editable');
-        Timmer_Minute_div.textContent = "0";
-        const Timmer_Second_div = document.createElement('div');
-        Timmer_Second_div.classList.add('Timmer_Second', 'Editable');
-        Timmer_Second_div.textContent = "0";
+        // const Timmer_Day_div = document.createElement('div');
+        const Timer_days_input = document.createElement('input');
+        Timer_days_input.setAttribute("type", 'number');
+        Timer_days_input.classList.add('Timer_days_input', 'Timer_input');
+        // Timmer_Day_div.classList.add('Timmer_Day', 'Editable');
+        // Timmer_Day_div.textContent = "1";
 
-        Notes_Timmer_div.appendChild(Timmer_Day_div);
-        Notes_Timmer_div.appendChild(Timmer_Hour_div);
-        Notes_Timmer_div.appendChild(Timmer_Minute_div);
-        Notes_Timmer_div.appendChild(Timmer_Second_div);
+        // const Timmer_Hour_div = document.createElement('div');
+        const Timer_hours_input = document.createElement('input');
+        Timer_hours_input.setAttribute("type", 'number');
+        Timer_hours_input.setAttribute('placeholder', 'x');
+        Timer_hours_input.classList.add('Timer_hours_input', 'Timer_input');
+        // Timmer_Hour_div.classList.add('Timmer_Hour', 'Editable');
+        // Timmer_Hour_div.textContent = "0";
+
+        // const Timmer_Minute_div = document.createElement('div');
+        const Timer_minutes_input = document.createElement('input');
+        Timer_minutes_input.setAttribute("type", 'number');
+        Timer_minutes_input.classList.add('Timer_minutes_input', 'Timer_input');
+        // Timmer_Minute_div.classList.add('Timmer_Minute', 'Editable');
+        // Timmer_Minute_div.textContent = "0";
+
+        // const Timmer_Second_div = document.createElement('div');
+        const Timer_seconds_input = document.createElement('input');
+        Timer_seconds_input.setAttribute("type", 'number');
+        Timer_seconds_input.classList.add('Timer_seconds_input', 'Timer_input');
+        // Timmer_Second_div.classList.add('Timmer_Second', 'Editable');
+        // Timmer_Second_div.textContent = "0";
+
+        Notes_Timmer_div.appendChild(Timer_days_input);
+        Notes_Timmer_div.appendChild(Timer_hours_input);
+        Notes_Timmer_div.appendChild(Timer_minutes_input);
+        Notes_Timmer_div.appendChild(Timer_seconds_input);
+
+
+        // Notes_Timmer_div.appendChild(Timmer_Day_div);
+        // Notes_Timmer_div.appendChild(Timmer_Hour_div);
+        // Notes_Timmer_div.appendChild(Timmer_Minute_div);
+        // Notes_Timmer_div.appendChild(Timmer_Second_div);
 
         const Notes_text_div = document.createElement('div');
         Notes_text_div.classList.add('Notes_text', 'Editable');
@@ -408,7 +438,7 @@ function Ready_to_load() {
     function Make_Only_Last_Note_Editable() {
         const Notes_container = document.querySelectorAll('.Notes_container');
         const Notes_container_Length = Notes_container.length;
-        const Editables = Notes_container[Notes_container_Length-1].querySelectorAll('.Editable');
+        const Editables = Notes_container[Notes_container_Length - 1].querySelectorAll('.Editable');
         Make_These_Editable(Editables);
     }
 

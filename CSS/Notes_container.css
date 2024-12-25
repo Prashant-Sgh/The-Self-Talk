@@ -146,7 +146,7 @@
     align-items: center;
 }
 
-.Timmer .Timmer_Day, .Timmer_Hour, .Timmer_Minute, .Timmer_Second {
+/* .Timmer .Timmer_Day, .Timmer_Hour, .Timmer_Minute, .Timmer_Second {
     box-sizing: border-box;
     height: 25.8px;
     width: 35px;
@@ -161,7 +161,6 @@
     font-family: 'segoe UI';
     font-family: "Poppins";
     font-size: 1.1rem;
-    /* font-weight: 700; */
 }
 .Timmer .Timmer_Day{
     font-weight: 900;
@@ -180,7 +179,44 @@
 .Timmer .Timmer_Second{
     font-weight: 300;
     background-color: #D9E9BC;
+} */
+
+
+.Timmer .Timer_days_input, .Timer_hours_input, .Timer_minutes_input, .Timer_seconds_input {
+    box-sizing: border-box;
+    height: 25.8px;
+    width: 35px;
+    border-radius: 3px;
+    background-color: #B0D37A;
+    color: #011627;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: 'segoe UI';
+    font-family: "Poppins";
+    font-size: 1.1rem;
 }
+.Timmer .Timer_days_input{
+    font-weight: 900;
+}
+
+.Timmer .Timer_hours_input{
+    font-weight: 700;
+    background-color: #BBD98B;
+}
+
+.Timmer .Timer_minutes_input{
+    font-weight: 500;
+    background-color: #CFE4AC;
+}
+
+.Timmer .Timer_seconds_input{
+    font-weight: 300;
+    background-color: #D9E9BC;
+}
+
 
 .Notes_text {
     box-sizing: border-box;
@@ -200,4 +236,15 @@
 .Notes_text {
     overflow-wrap: break-word;
     /* color: red; */
+}
+
+input[type="number"] {
+    text-align: center;
+    border: none;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
