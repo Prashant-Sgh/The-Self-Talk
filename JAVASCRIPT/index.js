@@ -87,52 +87,28 @@ function Ready_to_load() {
             Add_A_New_Note();
             Update_notes();
         }
-        // else if (ID != 'Menu_button') {
-        //     const Menu_content = document.getElementById('Menu_content');
-        //     if (Menu_content.style.display === 'flex') {
-        //         Menu_content.classList.toggle('show');
-        //         console.log("FALSE, --------");
-        //     }
-        //     console.log("FALSE, --------");
-        // }
         else if (event.target.classList.contains('Edit_button')) {
             //MAKES THE CONTENT EDITABLE.
             const Notes_container = event.target.closest('.Notes_container');
             const Editables = Notes_container.querySelectorAll('.Editable');
-            Make_These_Editable(Editables);
-            const Edit_button = Notes_container.querySelector('.Edit_button');
-            var currentBG = Edit_button.style.backgroundImage;
-            currentBG = currentBG.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
-            if (currentBG.includes('/ASSETS/pencil.svg')) {
-                Edit_button.style.backgroundImage = "url('/ASSETS/check.svg')";
-                console.log("Save it !!", currentBG);
-            } else if (currentBG.includes('/ASSETS/check.svg')) {
-                Edit_button.style.backgroundImage = "url('/ASSETS/pencil.svg')";
-                console.log("Save it !!", currentBG);
-            }
+            const inputs = Notes_container.querySelectorAll('input');
+            // console.log("INPUTS are here", inputs);
+            Make_These_Editable(Editables, inputs);
+            // const Edit_button = Notes_container.querySelector('.Edit_button');
+            // var currentBG = Edit_button.style.backgroundImage;
+            // currentBG = currentBG.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
+            // if (currentBG.includes('/ASSETS/pencil.svg')) {
+            //     Edit_button.style.backgroundImage = "url('/ASSETS/check.svg')";
+            //     console.log("Save it !!", currentBG);
+            // } else if (currentBG.includes('/ASSETS/check.svg')) {
+            //     Edit_button.style.backgroundImage = "url('/ASSETS/pencil.svg')";
+            //     console.log("Save it !!", currentBG);
+            // }
             // Edit_button.classList.toggle('Edit_button_TOGGLE');
-            let count = 1;
-            console.log(count, " Hello");
-            count++;
-
-            // const Is_Editable = Notes_container.getAttribute('contenteditable') === 'true';
-            // Notes_container.setAttribute('contenteditable', !Is_Editable);
-
-            //THESE ARE FOR VISUAL CHANGES ON THAT PARTICULAR NOTE CARD
-            // const Edit_icon = Notes_container.querySelector('.Edit_icon');
-            // const Save_icon = Notes_container.querySelector('.Save_icon');
-            // Edit_icon.classList.toggle('edit_toggle');
-            // Save_icon.classList.toggle('save_toggle');
-            // console.log('Target =', event.target.classList);
-
-            //THESE ARE TO CHANGE ICONS WITH EVERY CLICK
-
+            // let count = 1;
+            // console.log(count, " Hello");
+            // count++;
         }
-        // else if (event.target.classList.contains('Save_icon')) {
-        //     Update_notes();
-        //     // Save_icon.classList.toggle('save_toggle');
-        //     console.log("Notes updated in local storage!");
-        // }
         else if (event.target.classList.contains('Delete_note')) {
             const Notes_container = event.target.closest('.Notes_container');
             Delete_Popup(Notes_container);
@@ -279,7 +255,24 @@ function Ready_to_load() {
 
     //Make_These_Editable(Editables)
 
-    function Make_These_Editable(Editables) {
+    function Make_These_Editable(Editables, inputss) {
+        // const Notes_container = Editables.closest('.Notes_container');
+        // const inputs = Notes_container.querySelectorAll('input');
+        // inputs.forEach(function (input) {
+        //     const Is_disabled = input.getAttribute('disabled') === 'true';
+        //     input.setAttribute('disabled', !Is_disabled);
+        //     // input.disabled = 'true';
+        // });
+
+        for (let elements = 0; elements < inputss.length; elements++) {
+            const element = inputss[elements];
+            // const Is_disabled = element.getAttribute('disabled') === 'true';
+            // console.log("Is_disabled", Is_disabled);
+            element.setAttribute('disabled', true);
+            console.log(element, 'Input element says:', elements);
+        }
+
+
         for (let elements = 0; elements < Editables.length; elements++) {
             const element = Editables[elements];
             const Is_Editable = element.getAttribute('contenteditable') === 'true';
@@ -294,7 +287,23 @@ function Ready_to_load() {
                     if (next_div) {
                         next_div.focus();
                     } else if (!next_div) {
-                        Save_and_Update_Notes();
+                        // Save_and_Update_Notes();
+                        inputss[0].focus();
+                        inputss.forEach((input, index, inputss) => {
+                            input.addEventListener('keydown', function (e) {
+                                if (e.key === 'Enter') {
+                                    console.log("XX YUP xx");
+                                    e.preventDefault();
+                                    const next_input = inputss[index + 1];
+                                    if (next_input) {
+                                        next_input.focus();
+                                    }
+                                    else if (!next_input) {
+                                        Save_and_Update_Notes();
+                                    }
+                                }
+                            })
+                        })
                     }
                 }
             })
@@ -309,6 +318,16 @@ function Ready_to_load() {
             // element.setAttribute('contenteditable', !Is_Editable);
             element.setAttribute('contenteditable', false);
         }
+
+        const Notes_container = document.getElementById('Notes_container');
+        const inputs = Notes_container.querySelectorAll('input');
+        for (let elements = 0; elements < inputs.length; elements++) {
+            const element = inputs[elements];
+            // const Is_disabled = element.getAttribute('disabled') === 'true';
+            element.setAttribute('disabled', true);
+        }
+
+
         Update_notes();
     }
 
@@ -380,29 +399,46 @@ function Ready_to_load() {
 
         // const Timmer_Day_div = document.createElement('div');
         const Timer_days_input = document.createElement('input');
-        Timer_days_input.setAttribute("type", 'number');
+        // Timer_days_input.setAttribute("type", 'number');
+        Timer_days_input.type = 'number';
+        Timer_days_input.placeholder = 'dd';
+        Timer_days_input.maxLength = 2;
+        Timer_days_input.disabled = false;
         Timer_days_input.classList.add('Timer_days_input', 'Timer_input');
         // Timmer_Day_div.classList.add('Timmer_Day', 'Editable');
         // Timmer_Day_div.textContent = "1";
 
         // const Timmer_Hour_div = document.createElement('div');
         const Timer_hours_input = document.createElement('input');
-        Timer_hours_input.setAttribute("type", 'number');
-        Timer_hours_input.setAttribute('placeholder', 'x');
+        // Timer_hours_input.setAttribute("type", 'number');
+        Timer_hours_input.type = 'number';
+        Timer_hours_input.placeholder = 'hh';
+        Timer_hours_input.maxLength = 2;
+        Timer_hours_input.disabled = false;
         Timer_hours_input.classList.add('Timer_hours_input', 'Timer_input');
+        // Timer_hours_input.setAttribute('maxlength', '2');
         // Timmer_Hour_div.classList.add('Timmer_Hour', 'Editable');
         // Timmer_Hour_div.textContent = "0";
 
         // const Timmer_Minute_div = document.createElement('div');
         const Timer_minutes_input = document.createElement('input');
-        Timer_minutes_input.setAttribute("type", 'number');
+        // Timer_minutes_input.setAttribute("type", 'number');
+        Timer_minutes_input.type = 'number';
+        Timer_minutes_input.placeholder = 'mm';
+        Timer_minutes_input.maxLength = 2;
+        Timer_minutes_input.disabled = false;
         Timer_minutes_input.classList.add('Timer_minutes_input', 'Timer_input');
         // Timmer_Minute_div.classList.add('Timmer_Minute', 'Editable');
         // Timmer_Minute_div.textContent = "0";
 
         // const Timmer_Second_div = document.createElement('div');
         const Timer_seconds_input = document.createElement('input');
-        Timer_seconds_input.setAttribute("type", 'number');
+        Timer_seconds_input.type = 'number';
+        // Timer_seconds_input.disabled = 'false';
+        Timer_seconds_input.placeholder = 'ss';
+        Timer_seconds_input.maxLength = 2;
+        Timer_seconds_input.disabled = false;
+        // Timer_seconds_input.setAttribute("type", 'number');
         Timer_seconds_input.classList.add('Timer_seconds_input', 'Timer_input');
         // Timmer_Second_div.classList.add('Timmer_Second', 'Editable');
         // Timmer_Second_div.textContent = "0";
@@ -411,6 +447,22 @@ function Ready_to_load() {
         Notes_Timmer_div.appendChild(Timer_hours_input);
         Notes_Timmer_div.appendChild(Timer_minutes_input);
         Notes_Timmer_div.appendChild(Timer_seconds_input);
+
+        const Timer_inputs = Notes_Timmer_div.querySelectorAll('.Timmer input');
+        Timer_inputs.forEach(function (inputs) {
+            inputs.addEventListener('input', function () {
+                if (inputs.value.length > 2) {
+                    console.log("Limit is set to 2");
+                    inputs.value = inputs.value.slice(0, 2);
+                }
+            })
+        })
+
+        // .addEventListener('input', function () {
+        //     if (Timer_inputs[0].value.length > 2) {
+        //         console.log("Limit is set to 2");
+        //     }
+        // })
 
 
         // Notes_Timmer_div.appendChild(Timmer_Day_div);
@@ -427,7 +479,6 @@ function Ready_to_load() {
         const paragraph = document.createElement('p');
         ul.appendChild(paragraph);
 
-
         Notes_container_div.appendChild(Notes_text_div);
 
 
@@ -439,7 +490,8 @@ function Ready_to_load() {
         const Notes_container = document.querySelectorAll('.Notes_container');
         const Notes_container_Length = Notes_container.length;
         const Editables = Notes_container[Notes_container_Length - 1].querySelectorAll('.Editable');
-        Make_These_Editable(Editables);
+        const inputs = Notes_container[Notes_container_Length - 1].querySelectorAll('.Timer_input');
+        Make_These_Editable(Editables, inputs);
     }
 
 
