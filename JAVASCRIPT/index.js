@@ -68,10 +68,16 @@ function Ready_to_load() {
 
     //Load notes from local Storage
     // JSON.parse(localStorage.getItem("Notes_HTML"));
-    if (localStorage.getItem("Notes_HTML")) {
+    if (localStorage.getItem("Notes_HTML") && localStorage.getItem("Input_array")) {
         (document.getElementById('Notes_container')).innerHTML = JSON.parse(localStorage.getItem("Notes_HTML"));
+        const inputs = document.querySelectorAll('#Notes_container input');
+        const input_array_from_localstorage = JSON.parse(localStorage.getItem("Input_array"));
+        for (let index = 0; index < inputs.length; index++) {
+            inputs[index].value = input_array_from_localstorage[index];
+            // inputs.disabled = false;
+            // inputs[index].value = 23;           
+        }
     }
-
 
 
     // const Menu_button = document.getElementById('Menu_button');
@@ -94,20 +100,6 @@ function Ready_to_load() {
             const inputs = Notes_container.querySelectorAll('input');
             // console.log("INPUTS are here", inputs);
             Make_These_Editable(Editables, inputs);
-            // const Edit_button = Notes_container.querySelector('.Edit_button');
-            // var currentBG = Edit_button.style.backgroundImage;
-            // currentBG = currentBG.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
-            // if (currentBG.includes('/ASSETS/pencil.svg')) {
-            //     Edit_button.style.backgroundImage = "url('/ASSETS/check.svg')";
-            //     console.log("Save it !!", currentBG);
-            // } else if (currentBG.includes('/ASSETS/check.svg')) {
-            //     Edit_button.style.backgroundImage = "url('/ASSETS/pencil.svg')";
-            //     console.log("Save it !!", currentBG);
-            // }
-            // Edit_button.classList.toggle('Edit_button_TOGGLE');
-            // let count = 1;
-            // console.log(count, " Hello");
-            // count++;
         }
         else if (event.target.classList.contains('Delete_note')) {
             const Notes_container = event.target.closest('.Notes_container');
@@ -256,28 +248,18 @@ function Ready_to_load() {
     //Make_These_Editable(Editables)
 
     function Make_These_Editable(Editables, inputss) {
-        // const Notes_container = Editables.closest('.Notes_container');
-        // const inputs = Notes_container.querySelectorAll('input');
-        // inputs.forEach(function (input) {
-        //     const Is_disabled = input.getAttribute('disabled') === 'true';
-        //     input.setAttribute('disabled', !Is_disabled);
-        //     // input.disabled = 'true';
-        // });
-
         for (let elements = 0; elements < inputss.length; elements++) {
             const element = inputss[elements];
-            // const Is_disabled = element.getAttribute('disabled') === 'true';
-            // console.log("Is_disabled", Is_disabled);
-            element.setAttribute('disabled', true);
-            console.log(element, 'Input element says:', elements);
+            element.disabled = false;
+            // console.log(element, 'Input element says:', elements);
         }
-
 
         for (let elements = 0; elements < Editables.length; elements++) {
             const element = Editables[elements];
             const Is_Editable = element.getAttribute('contenteditable') === 'true';
             element.setAttribute('contenteditable', !Is_Editable);
         }
+
         Editables[0].focus();
         Editables.forEach((div, index, Editables) => {
             div.addEventListener('keydown', function (e) {
@@ -292,13 +274,20 @@ function Ready_to_load() {
                         inputss.forEach((input, index, inputss) => {
                             input.addEventListener('keydown', function (e) {
                                 if (e.key === 'Enter') {
-                                    console.log("XX YUP xx");
+                                    // console.log("XX YUP xx");
                                     e.preventDefault();
                                     const next_input = inputss[index + 1];
                                     if (next_input) {
                                         next_input.focus();
+                                        // console.log("Time is 05:15 pm", inputss[index].value);
+                                        // inputss[index].value = 10;
+                                        if (inputss[index].value.trim() === '') {
+                                            inputss[index].value = 1;
+                                            console.log("Time is 05:15 pm", inputss[index].value);
+                                        }
                                     }
                                     else if (!next_input) {
+                                        inputss[index].value = 10;
                                         Save_and_Update_Notes();
                                     }
                                 }
@@ -324,9 +313,11 @@ function Ready_to_load() {
         for (let elements = 0; elements < inputs.length; elements++) {
             const element = inputs[elements];
             // const Is_disabled = element.getAttribute('disabled') === 'true';
-            element.setAttribute('disabled', true);
+            // element.value = 43;
+            element.disabled = true;
         }
 
+        Input_digits_size();
 
         Update_notes();
     }
@@ -438,6 +429,7 @@ function Ready_to_load() {
         Timer_seconds_input.placeholder = 'ss';
         Timer_seconds_input.maxLength = 2;
         Timer_seconds_input.disabled = false;
+        Timer_seconds_input.value = 541562;
         // Timer_seconds_input.setAttribute("type", 'number');
         Timer_seconds_input.classList.add('Timer_seconds_input', 'Timer_input');
         // Timmer_Second_div.classList.add('Timmer_Second', 'Editable');
@@ -449,20 +441,33 @@ function Ready_to_load() {
         Notes_Timmer_div.appendChild(Timer_seconds_input);
 
         const Timer_inputs = Notes_Timmer_div.querySelectorAll('.Timmer input');
-        Timer_inputs.forEach(function (inputs) {
-            inputs.addEventListener('input', function () {
-                if (inputs.value.length > 2) {
-                    console.log("Limit is set to 2");
-                    inputs.value = inputs.value.slice(0, 2);
-                }
-            })
-        })
+        Input_digits_size();
+
+        // Listen_timer_input(Timer_inputs);        
+
+        // Timer_inputs.forEach(function (inputs) {
+        //     inputs.addEventListener('input', function () {
+        //         if (inputs.value.length > 2) {
+        //             console.log("Limit is set to 2");
+        //             inputs.value = inputs.value.slice(0, 2);
+        //         }
+        //     })
+        // })
 
         // .addEventListener('input', function () {
         //     if (Timer_inputs[0].value.length > 2) {
         //         console.log("Limit is set to 2");
         //     }
         // })
+
+
+
+        // if (input.value === "" || isNaN(input.value)) {
+        //     input.value = 100;
+        // } else if (input.value) {
+        //     input.value = 911;
+        // }
+
 
 
         // Notes_Timmer_div.appendChild(Timmer_Day_div);
@@ -476,14 +481,60 @@ function Ready_to_load() {
         const ul = document.createElement('ul');
         Notes_text_div.appendChild(ul);
 
-        const paragraph = document.createElement('p');
-        ul.appendChild(paragraph);
+        // const paragraph = document.createElement('p');
+        const List_paragraph = document.createElement('li');
+        // ul.appendChild(paragraph);
+        ul.appendChild(List_paragraph);
 
         Notes_container_div.appendChild(Notes_text_div);
 
 
         Make_Only_Last_Note_Editable();
 
+    }
+
+    function Input_digits_size() {
+        const Timer_inputs = document.querySelectorAll('.Timmer input');
+        Timer_inputs.forEach(function (inputs) {
+            inputs.addEventListener('input', function () {
+                if (inputs.value.length > 2) {
+                    console.log("Limit is set to 2");
+                    inputs.value = inputs.value.slice(0, 2);
+                }
+            })
+        })
+    }
+
+    // function Listen_timer_input(Timer_inputs) {
+    //     Timer_inputs.forEach((function (input) {
+    //         input.addEventListener('input', function () {
+    //             // let value = 911;
+    //             if (input.value === "" || isNaN(input.value)) {
+    //                 input.value = 100;
+    //             } else if (input.value.trim() === 3) {
+    //                 input.value = 933;
+    //             }
+    //             else if (Enter_key(input)) {
+    //                 console.log('QQQQQQQQQ     SSSSSS  DDDDDD');
+    //             }
+    //             // Enter_key(input);
+    //             console.log("911");
+    //         })
+    //     }))
+    // }
+
+    function Enter_key(input) {
+        console.log("E56912654bhugyrttttttttttt");
+        input.addEventListener('keydown', function (e) {
+            if (e.key === "Enter") {
+                console.log("Enter key is pressed");
+                return true;
+            }
+            else {
+                console.log("Enter key is NOT pressed");
+                return false;
+            }
+        })
     }
 
     function Make_Only_Last_Note_Editable() {
@@ -502,6 +553,14 @@ function Ready_to_load() {
         const Notes_container_box = document.getElementById('Notes_container');
         const Notes = Notes_container_box.innerHTML;
         localStorage.setItem("Notes_HTML", JSON.stringify(Notes));
+        const inputs = Notes_container_box.querySelectorAll('input');
+        let input_contents = [];
+        for (let index = 0; index < inputs.length; index++) {
+            const input_data = inputs[index].value;
+            input_contents.push(input_data);
+        }
+        localStorage.setItem("Input_array", JSON.stringify(input_contents));
+        console.log("Hello Buddy", input_contents);
     }
 
 }
