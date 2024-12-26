@@ -269,21 +269,19 @@ function Ready_to_load() {
                     if (next_div) {
                         next_div.focus();
                     } else if (!next_div) {
-                        // Save_and_Update_Notes();
                         inputss[0].focus();
                         inputss.forEach((input, index, inputss) => {
                             input.addEventListener('keydown', function (e) {
                                 if (e.key === 'Enter') {
-                                    // console.log("XX YUP xx");
                                     e.preventDefault();
                                     const next_input = inputss[index + 1];
                                     if (next_input) {
                                         next_input.focus();
-                                        // console.log("Time is 05:15 pm", inputss[index].value);
-                                        // inputss[index].value = 10;
                                         if (inputss[index].value.trim() === '') {
                                             inputss[index].value = 1;
-                                            console.log("Time is 05:15 pm", inputss[index].value);
+                                            // console.log("Time is 05:15 pm", inputss[index].value);
+                                        }else if (!(inputss[index].value.trim() === '')) {
+                                            JSON.parse(localStorage.getItem("Input_array"));
                                         }
                                     }
                                     else if (!next_input) {
@@ -556,7 +554,7 @@ function Ready_to_load() {
             input_contents.push(input_data);
         }
         localStorage.setItem("Input_array", JSON.stringify(input_contents));
-        console.log("Hello Buddy", input_contents);
+        // console.log("Hello Buddy", input_contents);
     }
 }
 

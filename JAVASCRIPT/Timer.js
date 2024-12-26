@@ -12,6 +12,10 @@ function load_now() {
     const Timmer_Hours = document.querySelectorAll('.Timer_hours_input');
     const Timmer_Minutes = document.querySelectorAll('.Timer_minutes_input');
     const Timmer_Seconds = document.querySelectorAll('.Timer_seconds_input');
+
+    const Input_array = JSON.parse(localStorage.getItem("Input_array"));
+
+
     let target_date = Number(17);
 
     setInterval(function () {
@@ -41,9 +45,13 @@ function load_now() {
     function Hours() {
         let now = new Date();
         let hour = now.getHours();
+        let count = 0;
         Timmer_Hours.forEach(Timmer_Hour => {
+            let Input_hour = Number(Input_array[(4*count) + 1]);
             // let input_hour = Timmer_Hour.value.trim();
-            Timmer_Hour.value = input_hour - hour;
+            let min = 60 - now.getMinutes();
+            Timmer_Hour.value = Input_hour - 1;
+            count++;
         });
     }
 
