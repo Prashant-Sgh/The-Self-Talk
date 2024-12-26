@@ -461,13 +461,11 @@ function Ready_to_load() {
         // })
 
 
-
         // if (input.value === "" || isNaN(input.value)) {
         //     input.value = 100;
         // } else if (input.value) {
         //     input.value = 911;
         // }
-
 
 
         // Notes_Timmer_div.appendChild(Timmer_Day_div);
@@ -477,10 +475,8 @@ function Ready_to_load() {
 
         const Notes_text_div = document.createElement('div');
         Notes_text_div.classList.add('Notes_text', 'Editable');
-
         const ul = document.createElement('ul');
         Notes_text_div.appendChild(ul);
-
         // const paragraph = document.createElement('p');
         const List_paragraph = document.createElement('li');
         // ul.appendChild(paragraph);
@@ -562,7 +558,6 @@ function Ready_to_load() {
         localStorage.setItem("Input_array", JSON.stringify(input_contents));
         console.log("Hello Buddy", input_contents);
     }
-
 }
 
 function ClockWorkingFunction() {
