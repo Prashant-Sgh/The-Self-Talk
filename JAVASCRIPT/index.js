@@ -263,9 +263,13 @@ function Ready_to_load() {
         Editables[0].focus();
         Editables.forEach((div, index, Editables) => {
             div.addEventListener('keydown', function (e) {
-                if (e.key === 'Enter') {
+                if (e.shiftKey && e.key === 'Enter') {
                     e.preventDefault();
                     const next_div = Editables[index + 1];
+                    // if (e.shiftKey) {
+                    //     Editables[index].textContent = "njhnnk";
+                    //     document.execCommand('insertHTML', false, '<br>');
+                    // }
                     if (next_div) {
                         next_div.focus();
                     } else if (!next_div) {

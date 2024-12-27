@@ -59,12 +59,14 @@ function load_now() {
                 const inputHrs = Input_array[((4 * index) + 1)];
                 const inputDays = Input_array[((4 * index) + 0)];
                 Timmer_Days[index].value = inputDays;
-                if(((inputHrs) === 24) && (inputMin === 59) && (inputSec === 0)) {
-                    Input_array[((4 * index) + 0)] = inputDays - 1;
-                    // if (Input_array[((4 * index) + 1)] < 0) {
-                    //     Input_array[((4 * index) + 1)] = 24;
+                if (Input_array[((4 * index) + 0)] <= 0) {
+                    // Input_array[((4 * index) + 1)] = 24;
+                    // Timmer_Days[index].style.backgroundColor = "#d42121";
+                    Timmer_Days[index].style.color = "red";
                     // change color to red to represent you are taking too long for this task.
-                    // }
+                }
+                if (((inputHrs) === 24) && (inputMin === 59) && (inputSec === 0)) {
+                    Input_array[((4 * index) + 0)] = inputDays - 1;
                 }
                 localStorage.setItem("Input_array", JSON.stringify(Input_array));
             }
@@ -90,7 +92,7 @@ function load_now() {
                 const inputMin = Input_array[((4 * index) + 2)];
                 const inputHrs = Input_array[((4 * index) + 1)];
                 Timmer_Hours[index].value = inputHrs;
-                if(((inputMin) === 59) && (inputSec === 0)) {
+                if (((inputMin) === 59) && (inputSec === 0)) {
                     Input_array[((4 * index) + 1)] = inputHrs - 1;
 
                     if (Input_array[((4 * index) + 1)] < 0) {
@@ -116,7 +118,7 @@ function load_now() {
                 const inputMin = Input_array[((4 * index) + 2)];
                 Timmer_Minutes[index].value = inputMin;
                 // Input_array[((4 * index) + 3)] = inputSec - 1;
-                if((inputSec) === 0) {
+                if ((inputSec) === 0) {
                     Input_array[((4 * index) + 2)] = inputMin - 1;
 
                     if (Input_array[((4 * index) + 2)] < 0) {
@@ -139,7 +141,7 @@ function load_now() {
                 const inputSec = Input_array[((4 * index) + 3)];
                 Timmer_Seconds[index].value = inputSec;
                 Input_array[((4 * index) + 3)] = inputSec - 1;
-                if((Input_array[((4 * index) + 3)]) < 0) {
+                if ((Input_array[((4 * index) + 3)]) < 0) {
                     Input_array[((4 * index) + 3)] = 59;
                 }
                 localStorage.setItem("Input_array", JSON.stringify(Input_array));
