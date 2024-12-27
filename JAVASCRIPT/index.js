@@ -279,14 +279,17 @@ function Ready_to_load() {
                                         next_input.focus();
                                         if (inputss[index].value.trim() === '') {
                                             inputss[index].value = 1;
+                                            // localStorage.setItem("Timer_input_time", JSON.stringify());
                                             // console.log("Time is 05:15 pm", inputss[index].value);
-                                        }else if (!(inputss[index].value.trim() === '')) {
-                                            JSON.parse(localStorage.getItem("Input_array"));
                                         }
                                     }
                                     else if (!next_input) {
-                                        inputss[index].value = 10;
+                                        if (inputss[index].value.trim() === '') {
+                                            inputss[index].value = 11;
+                                        }
+                                        // inputss[index].value = 10;
                                         Save_and_Update_Notes();
+                                        // load_now();
                                     }
                                 }
                             })
@@ -427,7 +430,7 @@ function Ready_to_load() {
         Timer_seconds_input.placeholder = 'ss';
         Timer_seconds_input.maxLength = 2;
         Timer_seconds_input.disabled = false;
-        Timer_seconds_input.value = 541562;
+        // Timer_seconds_input.value = 541562;
         // Timer_seconds_input.setAttribute("type", 'number');
         Timer_seconds_input.classList.add('Timer_seconds_input', 'Timer_input');
         // Timmer_Second_div.classList.add('Timmer_Second', 'Editable');
@@ -548,13 +551,15 @@ function Ready_to_load() {
         const Notes = Notes_container_box.innerHTML;
         localStorage.setItem("Notes_HTML", JSON.stringify(Notes));
         const inputs = Notes_container_box.querySelectorAll('input');
+        const inputs_length = inputs.length;
         let input_contents = [];
-        for (let index = 0; index < inputs.length; index++) {
+        for (let index = 0; index < inputs_length; index++) {
             const input_data = inputs[index].value;
             input_contents.push(input_data);
         }
         localStorage.setItem("Input_array", JSON.stringify(input_contents));
         // console.log("Hello Buddy", input_contents);
+
     }
 }
 
