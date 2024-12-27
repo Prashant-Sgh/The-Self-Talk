@@ -94,8 +94,11 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
+    /* flex-direction: column-reverse; */
     align-items: end;
-    justify-content: end;
+    /* justify-content: end; */
+    /* justify-content: start; */
+    /* justify-items: end; */
     row-gap: 6px;
     overflow: auto;
 }

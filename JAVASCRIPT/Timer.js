@@ -60,10 +60,7 @@ function load_now() {
                 const inputDays = Input_array[((4 * index) + 0)];
                 Timmer_Days[index].value = inputDays;
                 if (Input_array[((4 * index) + 0)] <= 0) {
-                    // Input_array[((4 * index) + 1)] = 24;
-                    // Timmer_Days[index].style.backgroundColor = "#d42121";
                     Timmer_Days[index].style.color = "red";
-                    // change color to red to represent you are taking too long for this task.
                 }
                 if (((inputHrs) === 24) && (inputMin === 59) && (inputSec === 0)) {
                     Input_array[((4 * index) + 0)] = inputDays - 1;
@@ -98,6 +95,10 @@ function load_now() {
                     if (Input_array[((4 * index) + 1)] < 0) {
                         Input_array[((4 * index) + 1)] = 24;
                     }
+                }
+                if (Input_array[((4 * index) + 1)] < 13) {
+                    Timmer_Hours[index].style.color = "#934712";
+                    Timmer_Hours[index].style.color = "purple";
                 }
                 localStorage.setItem("Input_array", JSON.stringify(Input_array));
             }

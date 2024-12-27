@@ -9,15 +9,15 @@ fetch('Chat_background.html')
 
 
 
-fetch('Chat_box.html')
-    .then(response => response.text())
-    .then(data => {
-        document.getElementById('Chat_box').innerHTML = data;
-        ClockWorkingFunction();
-    })
-    .catch(error => {
-        console.error('Error loading Chat_box.html:', error);
-    });
+// fetch('Chat_box.html')
+//     .then(response => response.text())
+//     .then(data => {
+//         document.getElementById('Chat_box').innerHTML = data;
+//         ClockWorkingFunction();
+//     })
+//     .catch(error => {
+//         console.error('Error loading Chat_box.html:', error);
+//     });
 
 
 
@@ -51,6 +51,11 @@ function content_loaded() {
     setTimeout(function run() {
         console.log('DATA FETCHED');
         Ready_to_load()
+        // Scroll the chats to top
+        // setInterval(function scroll_chat() {
+        //     let chatBox = document.getElementById('Chat_box');
+        //     chatBox.scrollTop = chatBox.scrollHeight;
+        // },2000)
         // ClockWorkingFunction()
 
     }, 2000)
@@ -67,7 +72,6 @@ function Ready_to_load() {
 
 
     //Load notes from local Storage
-    // JSON.parse(localStorage.getItem("Notes_HTML"));
     if (localStorage.getItem("Notes_HTML") && localStorage.getItem("Input_array")) {
         (document.getElementById('Notes_container')).innerHTML = JSON.parse(localStorage.getItem("Notes_HTML"));
         const inputs = document.querySelectorAll('#Notes_container input');
@@ -98,7 +102,6 @@ function Ready_to_load() {
             const Notes_container = event.target.closest('.Notes_container');
             const Editables = Notes_container.querySelectorAll('.Editable');
             const inputs = Notes_container.querySelectorAll('input');
-            // console.log("INPUTS are here", inputs);
             Make_These_Editable(Editables, inputs);
         }
         else if (event.target.classList.contains('Delete_note')) {
@@ -107,7 +110,6 @@ function Ready_to_load() {
             function Delete_Popup(Notes_container) {
                 const Delete_Popup_Window = document.getElementById('Delete_window');
                 Delete_Popup_Window.style.display = 'flex';
-                // const Delete_button = document.getElementById('Yes_Delete_Note');
                 document.addEventListener('click', function (source) {
                     if (source.target.id === 'Yes_Delete_Note') {
                         Notes_container.remove();
@@ -199,6 +201,7 @@ function Ready_to_load() {
         }
 
 
+        let textbox = document.getElementById('Message_texts').value;
         let message = Message_texts.value.trim();
         Message_texts.value = "";
         // Messages_array.push(message);
@@ -208,8 +211,12 @@ function Ready_to_load() {
         row_div.classList.add('row');
         const message_div = document.createElement('div');
         message_div.classList.add('message');
-        message_div.textContent = message
+        // message_div.textContent = message;
         row_div.appendChild(message_div);
+        message_div.innerHTML = textbox.replace(/\n/g, "<br>");
+        let chatBox = document.getElementById('Chat_box');
+        chatBox.scrollTop = chatBox.scrollHeight;
+
 
 
         // For TIME
@@ -218,8 +225,6 @@ function Ready_to_load() {
         const minute = (now.getMinutes()).toString().padStart(2, '0');
         const am_pm = now.getHours() >= 12 ? "pm" : "am";
         const time = `${hour}:${minute} ${am_pm}`
-        // Time_array.push(time);
-        // localStorage.setItem("History_Times", JSON.stringify(Time_array));
         const time_div = document.createElement('div');
         time_div.classList.add('time');
         time_div.textContent = time;
@@ -251,7 +256,6 @@ function Ready_to_load() {
         for (let elements = 0; elements < inputss.length; elements++) {
             const element = inputss[elements];
             element.disabled = false;
-            // console.log(element, 'Input element says:', elements);
         }
 
         for (let elements = 0; elements < Editables.length; elements++) {
@@ -266,10 +270,6 @@ function Ready_to_load() {
                 if (e.shiftKey && e.key === 'Enter') {
                     e.preventDefault();
                     const next_div = Editables[index + 1];
-                    // if (e.shiftKey) {
-                    //     Editables[index].textContent = "njhnnk";
-                    //     document.execCommand('insertHTML', false, '<br>');
-                    // }
                     if (next_div) {
                         next_div.focus();
                     } else if (!next_div) {
@@ -283,17 +283,13 @@ function Ready_to_load() {
                                         next_input.focus();
                                         if (inputss[index].value.trim() === '') {
                                             inputss[index].value = 1;
-                                            // localStorage.setItem("Timer_input_time", JSON.stringify());
-                                            // console.log("Time is 05:15 pm", inputss[index].value);
                                         }
                                     }
                                     else if (!next_input) {
                                         if (inputss[index].value.trim() === '') {
                                             inputss[index].value = 11;
                                         }
-                                        // inputss[index].value = 10;
                                         Save_and_Update_Notes();
-                                        // load_now();
                                     }
                                 }
                             })
