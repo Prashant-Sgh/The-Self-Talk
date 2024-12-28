@@ -8,6 +8,7 @@ fetch('Chat_background.html')
     });
 
 
+    
 
 // fetch('Chat_box.html')
 //     .then(response => response.text())
@@ -52,24 +53,19 @@ function content_loaded() {
         console.log('DATA FETCHED');
         Ready_to_load()
         // Scroll the chats to top
-        // setInterval(function scroll_chat() {
-        //     let chatBox = document.getElementById('Chat_box');
-        //     chatBox.scrollTop = chatBox.scrollHeight;
-        // },2000)
-        // ClockWorkingFunction()
+        setInterval(function scroll_chat() {
+            let chatBox = document.getElementById('Chat_box');
+            chatBox.scrollTop = chatBox.scrollHeight;
+        },2000)
 
     }, 2000)
 }
 
 // window.onload = ClockWorkingFunction();
-
-
 content_loaded()
 
 
-
 function Ready_to_load() {
-
 
     //Load notes from local Storage
     if (localStorage.getItem("Notes_HTML") && localStorage.getItem("Input_array")) {
@@ -78,13 +74,8 @@ function Ready_to_load() {
         const input_array_from_localstorage = JSON.parse(localStorage.getItem("Input_array"));
         for (let index = 0; index < inputs.length; index++) {
             inputs[index].value = input_array_from_localstorage[index];
-            // inputs.disabled = false;
-            // inputs[index].value = 23;           
         }
     }
-
-
-    // const Menu_button = document.getElementById('Menu_button');
 
     document.addEventListener('click', function (event) {
         const ID = event.target.id;
@@ -130,7 +121,6 @@ function Ready_to_load() {
         }
         else if (event.target.classList.contains('Editable') === false) {
             console.log('You just clicked on "Editable"');
-            //Saves the note and update them on local storage..
             Save_and_Update_Notes();
         }
     })
@@ -169,9 +159,6 @@ function Ready_to_load() {
     Send_button.addEventListener('click', function () { Send_message() });
 
     function Send_message() {
-        console.log('You just clicked send....');
-
-        console.log((new Date()).getDate(), (new Date()).getMonth());
         let contain_date = false;
 
         const noww = new Date();
@@ -200,24 +187,17 @@ function Ready_to_load() {
             Chat_box.appendChild(Day_div);
         }
 
-
         let textbox = document.getElementById('Message_texts').value;
         let message = Message_texts.value.trim();
         Message_texts.value = "";
-        // Messages_array.push(message);
-        // localStorage.setItem("History", JSON.stringify(Messages_array));
-        // console.log("message", Messages_array);
         const row_div = document.createElement('div');
         row_div.classList.add('row');
         const message_div = document.createElement('div');
         message_div.classList.add('message');
-        // message_div.textContent = message;
         row_div.appendChild(message_div);
         message_div.innerHTML = textbox.replace(/\n/g, "<br>");
         let chatBox = document.getElementById('Chat_box');
         chatBox.scrollTop = chatBox.scrollHeight;
-
-
 
         // For TIME
         const now = new Date();
@@ -237,7 +217,6 @@ function Ready_to_load() {
     }
 
     // handleng the keys 
-
     const textbox = document.getElementById('Message_texts');
     textbox.addEventListener('keydown', function (e) {
         if (e.key === 'Enter') {
@@ -251,19 +230,11 @@ function Ready_to_load() {
     })
 
     //Make_These_Editable(Editables)
-
-
     let Timer_decleared_time = [];
-
     if (localStorage.getItem("Timer_decleared_time")) {
         Timer_decleared_time = JSON.parse(localStorage.getItem("Timer_decleared_time"));
         console.log("Timer_decleared_time EXISTS");
     }
-    // else if (!(localStorage.getItem("Timer_decleared_time"))) {
-    // let Timer_decleared_time = [];
-    // console.log("Timer_decleared_time DON'T EXISTS", Timer_decleared_time);
-    // }
-    // console.log("Timer_decleared_time::--", Timer_decleared_time);
 
     function Make_These_Editable(Editables, inputss) {
         let now = new Date();
@@ -311,18 +282,9 @@ function Ready_to_load() {
                                         if (inputss[index].value.trim() === '') {
                                             inputss[index].value = 11;
                                         }
-
                                         Timer_decleared_time.push(now.getSeconds());
-                                        // if (index === 3) {
-                                        // } 
-
-                                        // Timer_decleared_time.push(inputss[index].value);
-                                        // Timer_decleared_time.push(now.getMinutes());
                                         Save_and_Update_Notes();
                                     }
-                                    // Timer_decleared_time.push(now.getMinutes());
-                                    // Timer_decleared_time.push(inputss[index].value);
-
                                 }
                             })
                         })
@@ -337,8 +299,6 @@ function Ready_to_load() {
         const Editables = document.querySelectorAll('.Editable');
         for (let elements = 0; elements < Editables.length; elements++) {
             const element = Editables[elements];
-            // const Is_Editable = element.getAttribute('contenteditable') === 'true';
-            // element.setAttribute('contenteditable', !Is_Editable);
             element.setAttribute('contenteditable', false);
         }
 
@@ -346,8 +306,6 @@ function Ready_to_load() {
         const inputs = Notes_container.querySelectorAll('input');
         for (let elements = 0; elements < inputs.length; elements++) {
             const element = inputs[elements];
-            // const Is_disabled = element.getAttribute('disabled') === 'true';
-            // element.value = 43;
             element.disabled = true;
         }
 
@@ -358,11 +316,8 @@ function Ready_to_load() {
 
 
     // CLEAR CHAT
-
     Option_clear_chat_button.addEventListener('click', function () {
         localStorage.removeItem('Chat_HTML');
-        // localStorage.removeItem('History');
-        // localStorage.removeItem('History_Times');
         Chat_box.innerHTML = "";
         Messages_array.length = 0;
         Time_array.length = 0;
@@ -374,23 +329,6 @@ function Ready_to_load() {
 
     // ADD A NEW NOTE
     function Add_A_New_Note() {
-        // <div id="Notes_container">
-        //     <div class="Notes_container">
-        //         <div class="Notes_heading">Build timer</div>
-        //         <button class="Save_button"><img class="Save_icon" src="/ASSETS/check.svg" alt=""></button>
-        //         <div class="Timmer">
-        //             <div class="Timmer_Day">0</div>
-        //             <div class="Timmer_Hour">0</div>
-        //             <div class="Timmer_Minute">0</div>
-        //             <div class="Timmer_Second">0</div>
-        //         </div>
-        //         <div class="Notes_text">
-        //             <ul>
-        //                 <li>Build this timer.</li>
-        //             </ul>
-        //         </div>
-        //     </div>
-        // </div>
         const Notes_container = document.getElementById('Notes_container');
         const Notes_container_div = document.createElement('div');
         Notes_container_div.classList.add('Notes_container');
@@ -407,67 +345,39 @@ function Ready_to_load() {
 
         const Edit_button = document.createElement('button');
         Edit_button.classList.add('Edit_button');
-        // const Edit_icon = document.createElement('img');
-        // Edit_icon.classList.add('Edit_icon');
-        // Edit_icon.setAttribute('src', '/ASSETS/pencil.svg');
-        // Edit_button.appendChild(Edit_icon);
-        // const Save_icon = document.createElement('img');
-        // Save_icon.classList.add('Save_icon');
-        // Save_icon.setAttribute('src', '/ASSETS/tick.svg');
-        // Edit_button.appendChild(Save_icon);
-        // Notes_container_div.appendChild(Save_button);
         Notes_container_div.appendChild(Edit_button);
 
         const Notes_Timmer_div = document.createElement('div');
         Notes_Timmer_div.classList.add('Timmer');
         Notes_container_div.appendChild(Notes_Timmer_div);
 
-        // const Timmer_Day_div = document.createElement('div');
         const Timer_days_input = document.createElement('input');
-        // Timer_days_input.setAttribute("type", 'number');
         Timer_days_input.type = 'number';
         Timer_days_input.placeholder = 'dd';
         Timer_days_input.maxLength = 2;
         Timer_days_input.disabled = false;
         Timer_days_input.classList.add('Timer_days_input', 'Timer_input');
-        // Timmer_Day_div.classList.add('Timmer_Day', 'Editable');
-        // Timmer_Day_div.textContent = "1";
 
-        // const Timmer_Hour_div = document.createElement('div');
         const Timer_hours_input = document.createElement('input');
-        // Timer_hours_input.setAttribute("type", 'number');
         Timer_hours_input.type = 'number';
         Timer_hours_input.placeholder = 'hh';
         Timer_hours_input.maxLength = 2;
         Timer_hours_input.disabled = false;
         Timer_hours_input.classList.add('Timer_hours_input', 'Timer_input');
-        // Timer_hours_input.setAttribute('maxlength', '2');
-        // Timmer_Hour_div.classList.add('Timmer_Hour', 'Editable');
-        // Timmer_Hour_div.textContent = "0";
 
-        // const Timmer_Minute_div = document.createElement('div');
         const Timer_minutes_input = document.createElement('input');
-        // Timer_minutes_input.setAttribute("type", 'number');
         Timer_minutes_input.type = 'number';
         Timer_minutes_input.placeholder = 'mm';
         Timer_minutes_input.maxLength = 2;
         Timer_minutes_input.disabled = false;
         Timer_minutes_input.classList.add('Timer_minutes_input', 'Timer_input');
-        // Timmer_Minute_div.classList.add('Timmer_Minute', 'Editable');
-        // Timmer_Minute_div.textContent = "0";
 
-        // const Timmer_Second_div = document.createElement('div');
         const Timer_seconds_input = document.createElement('input');
         Timer_seconds_input.type = 'number';
-        // Timer_seconds_input.disabled = 'false';
         Timer_seconds_input.placeholder = 'ss';
         Timer_seconds_input.maxLength = 2;
         Timer_seconds_input.disabled = false;
-        // Timer_seconds_input.value = 541562;
-        // Timer_seconds_input.setAttribute("type", 'number');
         Timer_seconds_input.classList.add('Timer_seconds_input', 'Timer_input');
-        // Timmer_Second_div.classList.add('Timmer_Second', 'Editable');
-        // Timmer_Second_div.textContent = "0";
 
         Notes_Timmer_div.appendChild(Timer_days_input);
         Notes_Timmer_div.appendChild(Timer_hours_input);
@@ -477,50 +387,16 @@ function Ready_to_load() {
         const Timer_inputs = Notes_Timmer_div.querySelectorAll('.Timmer input');
         Input_digits_size();
 
-        // Listen_timer_input(Timer_inputs);        
-
-        // Timer_inputs.forEach(function (inputs) {
-        //     inputs.addEventListener('input', function () {
-        //         if (inputs.value.length > 2) {
-        //             console.log("Limit is set to 2");
-        //             inputs.value = inputs.value.slice(0, 2);
-        //         }
-        //     })
-        // })
-
-        // .addEventListener('input', function () {
-        //     if (Timer_inputs[0].value.length > 2) {
-        //         console.log("Limit is set to 2");
-        //     }
-        // })
-
-
-        // if (input.value === "" || isNaN(input.value)) {
-        //     input.value = 100;
-        // } else if (input.value) {
-        //     input.value = 911;
-        // }
-
-
-        // Notes_Timmer_div.appendChild(Timmer_Day_div);
-        // Notes_Timmer_div.appendChild(Timmer_Hour_div);
-        // Notes_Timmer_div.appendChild(Timmer_Minute_div);
-        // Notes_Timmer_div.appendChild(Timmer_Second_div);
-
         const Notes_text_div = document.createElement('div');
         Notes_text_div.classList.add('Notes_text', 'Editable');
         const ul = document.createElement('ul');
         Notes_text_div.appendChild(ul);
-        // const paragraph = document.createElement('p');
         const List_paragraph = document.createElement('li');
-        // ul.appendChild(paragraph);
         ul.appendChild(List_paragraph);
 
         Notes_container_div.appendChild(Notes_text_div);
 
-
         Make_Only_Last_Note_Editable();
-
     }
 
     function Input_digits_size() {
@@ -534,24 +410,6 @@ function Ready_to_load() {
             })
         })
     }
-
-    // function Listen_timer_input(Timer_inputs) {
-    //     Timer_inputs.forEach((function (input) {
-    //         input.addEventListener('input', function () {
-    //             // let value = 911;
-    //             if (input.value === "" || isNaN(input.value)) {
-    //                 input.value = 100;
-    //             } else if (input.value.trim() === 3) {
-    //                 input.value = 933;
-    //             }
-    //             else if (Enter_key(input)) {
-    //                 console.log('QQQQQQQQQ     SSSSSS  DDDDDD');
-    //             }
-    //             // Enter_key(input);
-    //             console.log("911");
-    //         })
-    //     }))
-    // }
 
     function Enter_key(input) {
         console.log("E56912654bhugyrttttttttttt");
@@ -578,7 +436,6 @@ function Ready_to_load() {
 
 
     //REMEMBER NOTES
-    // Update_notes()
     function Update_notes() {
         const Notes_container_box = document.getElementById('Notes_container');
         const Notes = Notes_container_box.innerHTML;
@@ -592,7 +449,6 @@ function Ready_to_load() {
         }
         localStorage.setItem("Input_array", JSON.stringify(input_contents));
         localStorage.setItem("Timer_decleared_time", JSON.stringify(Timer_decleared_time));
-        // console.log("Hello Buddy", input_contents);
 
     }
 }
@@ -626,7 +482,5 @@ function ClockWorkingFunction() {
     // Call updateClock every second to reflect real-time updates
     setInterval(updateClock, 1000);
 
-    // Initial clock setup
-    // window.onload = updateClock();
 
 }
