@@ -53,19 +53,27 @@ function load_now() {
 
         setInterval(function () {
             const Input_array = JSON.parse(localStorage.getItem("Input_array"));
-            for (let index = 0; index < Timmer_Hours.length; index++) {
-                const inputSec = Input_array[((4 * index) + 3)];
-                const inputMin = Input_array[((4 * index) + 2)];
-                const inputHrs = Input_array[((4 * index) + 1)];
-                const inputDays = Input_array[((4 * index) + 0)];
-                Timmer_Days[index].value = inputDays;
-                if (Input_array[((4 * index) + 0)] <= 0) {
-                    Timmer_Days[index].style.color = "red";
-                }
-                if (((inputHrs) === 24) && (inputMin === 59) && (inputSec === 0)) {
-                    Input_array[((4 * index) + 0)] = inputDays - 1;
-                }
-                localStorage.setItem("Input_array", JSON.stringify(Input_array));
+            Timer_decleared_time = JSON.parse(localStorage.getItem("Timer_decleared_time"));
+
+            for (let index_of_TimerDay = 0; index_of_TimerDay < Timmer_Days.length; index_of_TimerDay++) {
+                let OLD_TIME_value = (Timer_decleared_time[((4 * index_of_TimerDay) + 0)]);
+                let input_Index = ((4 * index_of_TimerDay) + 0);
+                Timer_on_Work(Input_array, Timmer_Days, OLD_TIME_value, input_Index, index_of_TimerDay);
+
+
+
+            //     const inputSec = Input_array[((4 * index) + 3)];
+            //     const inputMin = Input_array[((4 * index) + 2)];
+            //     const inputHrs = Input_array[((4 * index) + 1)];
+            //     const inputDays = Input_array[((4 * index) + 0)];
+            //     Timmer_Days[index].value = inputDays;
+            //     if (Input_array[((4 * index) + 0)] <= 0) {
+            //         Timmer_Days[index].style.color = "red";
+            //     }
+            //     if (((inputHrs) === 24) && (inputMin === 59) && (inputSec === 0)) {
+            //         Input_array[((4 * index) + 0)] = inputDays - 1;
+            //     }
+            //     localStorage.setItem("Input_array", JSON.stringify(Input_array));
             }
         }, 1000);
     }
@@ -84,23 +92,31 @@ function load_now() {
 
         setInterval(function () {
             const Input_array = JSON.parse(localStorage.getItem("Input_array"));
-            for (let index = 0; index < Timmer_Hours.length; index++) {
-                const inputSec = Input_array[((4 * index) + 3)];
-                const inputMin = Input_array[((4 * index) + 2)];
-                const inputHrs = Input_array[((4 * index) + 1)];
-                Timmer_Hours[index].value = inputHrs;
-                if (((inputMin) === 59) && (inputSec === 0)) {
-                    Input_array[((4 * index) + 1)] = inputHrs - 1;
+            Timer_decleared_time = JSON.parse(localStorage.getItem("Timer_decleared_time"));
 
-                    if (Input_array[((4 * index) + 1)] < 0) {
-                        Input_array[((4 * index) + 1)] = 24;
-                    }
-                }
-                if (Input_array[((4 * index) + 1)] < 13) {
-                    Timmer_Hours[index].style.color = "#934712";
-                    Timmer_Hours[index].style.color = "purple";
-                }
-                localStorage.setItem("Input_array", JSON.stringify(Input_array));
+            for (let index_of_TimerHour = 0; index_of_TimerHour < Timmer_Hours.length; index_of_TimerHour++) {
+                let OLD_TIME_value = (Timer_decleared_time[((4 * index_of_TimerHour) + 1)]);
+                let input_Index = ((4 * index_of_TimerHour) + 1);
+                Timer_on_Work(Input_array, Timmer_Hours, OLD_TIME_value, input_Index, index_of_TimerHour);
+
+
+
+                // const inputSec = Input_array[((4 * index) + 3)];
+                // const inputMin = Input_array[((4 * index) + 2)];
+                // const inputHrs = Input_array[((4 * index) + 1)];
+                // Timmer_Hours[index].value = inputHrs;
+                // if (((inputMin) === 59) && (inputSec === 0)) {
+                //     Input_array[((4 * index) + 1)] = inputHrs - 1;
+
+                //     if (Input_array[((4 * index) + 1)] < 0) {
+                //         Input_array[((4 * index) + 1)] = 24;
+                //     }
+                // }
+                // if (Input_array[((4 * index) + 1)] < 13) {
+                //     Timmer_Hours[index].style.color = "#934712";
+                //     Timmer_Hours[index].style.color = "purple";
+                // }
+                // localStorage.setItem("Input_array", JSON.stringify(Input_array));
             }
         }, 1000);
     }
@@ -114,39 +130,98 @@ function load_now() {
 
         setInterval(function () {
             const Input_array = JSON.parse(localStorage.getItem("Input_array"));
-            for (let index = 0; index < Timmer_Minutes.length; index++) {
-                const inputSec = Input_array[((4 * index) + 3)];
-                const inputMin = Input_array[((4 * index) + 2)];
-                Timmer_Minutes[index].value = inputMin;
-                // Input_array[((4 * index) + 3)] = inputSec - 1;
-                if ((inputSec) === 0) {
-                    Input_array[((4 * index) + 2)] = inputMin - 1;
+            Timer_decleared_time = JSON.parse(localStorage.getItem("Timer_decleared_time"));
 
-                    if (Input_array[((4 * index) + 2)] < 0) {
-                        Input_array[((4 * index) + 2)] = 59;
-                    }
-                }
-                localStorage.setItem("Input_array", JSON.stringify(Input_array));
+            for (let index_of_TimerMin = 0; index_of_TimerMin < Timmer_Minutes.length; index_of_TimerMin++) {
+                let OLD_TIME_value = (Timer_decleared_time[((4 * index_of_TimerMin) + 2)]);
+                let input_Index = ((4 * index_of_TimerMin) + 2);
+                Timer_on_Work(Input_array, Timmer_Minutes, OLD_TIME_value, input_Index, index_of_TimerMin);
+
+
+
+
+                // const inputSec = Input_array[((4 * index) + 3)];
+                // const inputMin = Input_array[((4 * index) + 2)];
+                // Timmer_Minutes[index].value = inputMin;
+                // // Input_array[((4 * index) + 3)] = inputSec - 1;
+                // if ((inputSec) === 0) {
+                //     Input_array[((4 * index) + 2)] = inputMin - 1;
+
+                //     if (Input_array[((4 * index) + 2)] < 0) {
+                //         Input_array[((4 * index) + 2)] = 59;
+                //     }
+                // }
+                // localStorage.setItem("Input_array", JSON.stringify(Input_array));
             }
         }, 1000);
     }
 
     function Seconds() {
-        // let count = 0;
-        // let Input_second = Number(Input_array[(4 * count) + 3]);
         setInterval(function () {
-            // let now = new Date();
-            // let second = now.getSeconds();
-            const Input_array = JSON.parse(localStorage.getItem("Input_array"));
-            for (let index = 0; index < Timmer_Seconds.length; index++) {
-                const inputSec = Input_array[((4 * index) + 3)];
-                Timmer_Seconds[index].value = inputSec;
-                Input_array[((4 * index) + 3)] = inputSec - 1;
-                if ((Input_array[((4 * index) + 3)]) < 0) {
-                    Input_array[((4 * index) + 3)] = 59;
-                }
-                localStorage.setItem("Input_array", JSON.stringify(Input_array));
+            let Input_array = JSON.parse(localStorage.getItem("Input_array"));
+            Timer_decleared_time = JSON.parse(localStorage.getItem("Timer_decleared_time"));
+            for (let index_of_TimerSec = 0; index_of_TimerSec < Timmer_Seconds.length; index_of_TimerSec++) {
+                let OLD_TIME_value = (Timer_decleared_time[((4 * index_of_TimerSec) + 3)]);
+                let input_Index = ((4 * index_of_TimerSec) + 3);
+                Timer_on_Work(Input_array, Timmer_Seconds, OLD_TIME_value, input_Index, index_of_TimerSec);
+
+                // const inputSec = Input_array[((4 * index) + 3)];
+                // [index].value = inputSec;
+                // Input_array[((4 * index) + 3)] = inputSec - 1;
+                // if ((Input_array[((4 * index) + 3)]) < 0) {
+                //     Input_array[((4 * index) + 3)] = 59;
+                // }
+                // localStorage.setItem("Input_array", JSON.stringify(Input_array));
             }
         }, 1000);
     }
+}
+
+
+
+
+
+
+
+
+function Timer_on_Work(Input_array, Timmer_units_inputs, OLD_TIME_value, input_Index, index_of_Timer_unit) {
+    let now = new Date();
+    let New_Time;
+    let Time;
+    // console.log("input_Index", input_Index);
+    if ((input_Index % 4) === 0) {
+        Time = "D";
+        //DAY
+        New_Time = now.getDate();
+    }else if ((input_Index % 4) === 1) {
+        Time = "H";
+        //HOUR
+        New_Time = now.getHours();
+    }else if ((input_Index % 4) === 2) {
+        Time = "M";
+        //MINUTE
+        New_Time = now.getMinutes();
+    }else if ((input_Index % 4) === 3) {
+        Time = "S";
+        //SECONDS
+        // console.log("ATUL");
+ New_Time = now.getSeconds();
+        console.log("ATUL", New_Time);
+    }
+    let result = (OLD_TIME_value - New_Time);
+    if ((result < 0) || (result === 0)) {
+        if (Time === "D") {
+            result = result;
+        } else if (Time === "H") {
+            result = 24 + result;
+        } else if (Time === "M") {
+            result = 60 + result;
+        } else if (Time === "S") {
+            result = 60 -(-result);
+        }
+    }
+    // console.log("Atul Singh RESULT is: ", New_Time, typeof(New_Time), "OLD_TIME_value: ", (OLD_TIME_value  - New_Time));
+    Timmer_units_inputs[index_of_Timer_unit].value = result;
+    Input_array[input_Index] = result;
+    localStorage.setItem("Input_array", JSON.stringify(Input_array));
 }

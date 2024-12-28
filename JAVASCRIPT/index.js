@@ -252,7 +252,22 @@ function Ready_to_load() {
 
     //Make_These_Editable(Editables)
 
+
+    let Timer_decleared_time = [];
+
+    if (localStorage.getItem("Timer_decleared_time")) {
+        Timer_decleared_time = JSON.parse(localStorage.getItem("Timer_decleared_time"));
+        console.log("Timer_decleared_time EXISTS");
+    }
+    // else if (!(localStorage.getItem("Timer_decleared_time"))) {
+    // let Timer_decleared_time = [];
+    // console.log("Timer_decleared_time DON'T EXISTS", Timer_decleared_time);
+    // }
+    // console.log("Timer_decleared_time::--", Timer_decleared_time);
+
     function Make_These_Editable(Editables, inputss) {
+        let now = new Date();
+
         for (let elements = 0; elements < inputss.length; elements++) {
             const element = inputss[elements];
             element.disabled = false;
@@ -284,13 +299,30 @@ function Ready_to_load() {
                                         if (inputss[index].value.trim() === '') {
                                             inputss[index].value = 1;
                                         }
+                                        if (index === 0) {
+                                            Timer_decleared_time.push(now.getDate());
+                                        } else if (index === 1) {
+                                            Timer_decleared_time.push(now.getHours());
+                                        } else if (index === 2) {
+                                            Timer_decleared_time.push(now.getMinutes());
+                                        }
                                     }
                                     else if (!next_input) {
                                         if (inputss[index].value.trim() === '') {
                                             inputss[index].value = 11;
                                         }
+
+                                        Timer_decleared_time.push(now.getSeconds());
+                                        // if (index === 3) {
+                                        // } 
+
+                                        // Timer_decleared_time.push(inputss[index].value);
+                                        // Timer_decleared_time.push(now.getMinutes());
                                         Save_and_Update_Notes();
                                     }
+                                    // Timer_decleared_time.push(now.getMinutes());
+                                    // Timer_decleared_time.push(inputss[index].value);
+
                                 }
                             })
                         })
@@ -299,6 +331,7 @@ function Ready_to_load() {
             })
         });
     }
+
 
     function Save_and_Update_Notes() {
         const Editables = document.querySelectorAll('.Editable');
@@ -558,6 +591,7 @@ function Ready_to_load() {
             input_contents.push(input_data);
         }
         localStorage.setItem("Input_array", JSON.stringify(input_contents));
+        localStorage.setItem("Timer_decleared_time", JSON.stringify(Timer_decleared_time));
         // console.log("Hello Buddy", input_contents);
 
     }
