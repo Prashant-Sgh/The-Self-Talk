@@ -101,19 +101,18 @@ function Timer_on_Work(Input_array, Timmer_units_inputs, OLD_TIME_value, input_I
         Time = "D";
         //DAY
         New_Time = now.getDate();
-    }else if ((input_Index % 4) === 1) {
+    } else if ((input_Index % 4) === 1) {
         Time = "H";
         //HOUR
         New_Time = now.getHours();
-    }else if ((input_Index % 4) === 2) {
+    } else if ((input_Index % 4) === 2) {
         Time = "M";
         //MINUTE
         New_Time = now.getMinutes();
-    }else if ((input_Index % 4) === 3) {
+    } else if ((input_Index % 4) === 3) {
         Time = "S";
         //SECONDS
- New_Time = now.getSeconds();
-        console.log("ATUL", New_Time);
+        New_Time = now.getSeconds();
     }
     let result = (OLD_TIME_value - New_Time);
     if ((result < 0) || (result === 0)) {
@@ -122,9 +121,9 @@ function Timer_on_Work(Input_array, Timmer_units_inputs, OLD_TIME_value, input_I
         } else if (Time === "H") {
             result = 24 + result;
         } else if (Time === "M") {
-            result = 60 + result;
+            result = 59 + result;
         } else if (Time === "S") {
-            result = 60 -(-result);
+            result = 59 - (-result);
         }
     }
     Timmer_units_inputs[index_of_Timer_unit].value = result;

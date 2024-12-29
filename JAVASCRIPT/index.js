@@ -8,7 +8,7 @@ fetch('Chat_background.html')
     });
 
 
-    
+
 
 // fetch('Chat_box.html')
 //     .then(response => response.text())
@@ -27,23 +27,34 @@ fetch('Side_menu_container.html')
     .then(response => response.text())
     .then(data => {
         document.getElementById('Side_menu_container').innerHTML = data;
+        fetchClock();
     })
     .catch(error => {
         console.error('Error loading Side_menu_container.html:', error);
     });
 
 
+function fetchClock() {
+    fetch('clock.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('clock_container').innerHTML = data;
+            ClockWorkingFunction();
+        })
+        .catch(error => {
+            console.error('Error loading clock.html:', error);
+        });
+}
 
-
-fetch('clock.html')
-    .then(response => response.text())
-    .then(data => {
-        document.getElementById('clock_container').innerHTML = data;
-        ClockWorkingFunction();
-    })
-    .catch(error => {
-        console.error('Error loading clock.html:', error);
-    });
+// fetch('clock.html')
+//     .then(response => response.text())
+//     .then(data => {
+//         document.getElementById('clock_container').innerHTML = data;
+//         ClockWorkingFunction();
+//     })
+//     .catch(error => {
+//         console.error('Error loading clock.html:', error);
+//     });
 
 
 // //////////////////////////////////////////////////////////////////
@@ -56,7 +67,7 @@ function content_loaded() {
         setInterval(function scroll_chat() {
             let chatBox = document.getElementById('Chat_box');
             chatBox.scrollTop = chatBox.scrollHeight;
-        },2000)
+        }, 2000)
 
     }, 2000)
 }
@@ -98,32 +109,70 @@ function Ready_to_load() {
         else if (event.target.classList.contains('Delete_note')) {
             const Notes_container = event.target.closest('.Notes_container');
             Delete_Popup(Notes_container);
-            function Delete_Popup(Notes_container) {
-                const Delete_Popup_Window = document.getElementById('Delete_window');
-                Delete_Popup_Window.style.display = 'flex';
-                document.addEventListener('click', function (source) {
-                    if (source.target.id === 'Yes_Delete_Note') {
-                        Notes_container.remove();
-                        console.log("Notes Being deleted!");
-                        Update_notes();
-                        Delete_Popup_Window.style.display = 'none';
-                    }
-                    else if (source.target.id === 'Cancel_Delete_Note') {
-                        Delete_Popup_Window.style.display = 'none';
-                    }
-                })
-            }
+            console.log("Delete button CLICKED.");
+
         }
         else if (ID === 'Option_button') {
             console.log("You clicked Options");
             const Options = document.getElementById('Options');
             Options.classList.toggle('show');
         }
-        else if (event.target.classList.contains('Editable') === false) {
-            console.log('You just clicked on "Editable"');
+        else if ((event.target.classList.contains('Editable') === false) && !(event.target.id === "Yes_Delete_Note")) {
+            // console.log('You just clicked on "Editable"');
+            console.log('Notes SAVED');
             Save_and_Update_Notes();
         }
     })
+
+    function Delete_Popup(Notes_container) {
+        const Delete_Popup_Window = document.getElementById('Delete_window');
+        Delete_Popup_Window.style.display = 'flex';
+        let count = 0;
+        console.log("START COUNT:----", count);
+        document.addEventListener('click', function (source) {
+            if (source.target.id === 'Yes_Delete_Note') {
+                count = count + 1;
+                console.log("AFTER COUNT:----", count);
+                // let All_inputs = Notes_container.querySelectorAll('input');
+                let This_note_first_input = Notes_container.querySelector('input');
+                let Parent_Note_Container = Array.from(document.querySelectorAll("#Notes_container input"));
+                let input_Index = Parent_Note_Container.indexOf(This_note_first_input);
+                // console.log("Let's check the input's INDEX:  =  ", input_Index);
+                Update_TimerDeclearedTimeInLocalStorage(Notes_container, This_note_first_input, input_Index);
+                Notes_container.remove();
+                console.log("Note deleted!");
+                Update_notes();
+
+                Delete_Popup_Window.style.display = 'none';
+            }
+            // else if (source.target.id === 'Cancel_Delete_Note') {
+            //     Delete_Popup_Window.style.display = 'none';
+            // }
+            else if (!(source.target.id === 'Yes_Delete_Note')) {
+                Delete_Popup_Window.style.display = 'none';
+            }
+        }, { once: true });
+    }
+
+
+    // A function that updates "Timer_decleared_time" in local storage.
+    // the function will look something like this. function (Notes_container)
+    // Notes_container_INPUT = Notes container.querryselectorall(inputs);
+    // let inputss = documents.querryselectorall(.notes_container input);
+    // -->>>> let index_range_of = inputss(Notes_container_INPUT);  return <<-- (start_index, end_index)
+    // -->> Timer_decleared_time.slice(index_range_of);
+    // Update Timer_decleared_time in LocalStorage.
+
+
+    function Update_TimerDeclearedTimeInLocalStorage(Notes_container, This_note_first_input, input_Index) {
+        let Timer_decleared_time = JSON.parse(localStorage.getItem("Timer_decleared_time"));
+        // let All_note_inputs = document.querySelectorAll('#Notes_container input');
+        // let index = (Array.from(All_note_inputs)).indexOf(This_note_first_input);
+        // console.log("DELETE BUTTON CLICKED: index is from:", index, "to", index + 4);                            
+        // Timer_decleared_time.splice(index, 4);
+        Timer_decleared_time.splice(input_Index, 4);
+        localStorage.setItem("Timer_decleared_time", JSON.stringify(Timer_decleared_time));
+    }
 
 
     const Send_button = document.getElementById('Send_button');
@@ -233,7 +282,7 @@ function Ready_to_load() {
     let Timer_decleared_time = [];
     if (localStorage.getItem("Timer_decleared_time")) {
         Timer_decleared_time = JSON.parse(localStorage.getItem("Timer_decleared_time"));
-        console.log("Timer_decleared_time EXISTS");
+        // console.log("Timer_decleared_time EXISTS");
     }
 
     function Make_These_Editable(Editables, inputss) {
@@ -268,10 +317,11 @@ function Ready_to_load() {
                                     if (next_input) {
                                         next_input.focus();
                                         if (inputss[index].value.trim() === '') {
-                                            inputss[index].value = 1;
+                                            inputss[index].value = 0;
                                         }
                                         if (index === 0) {
                                             Timer_decleared_time.push(now.getDate());
+                                            inputss[index].value = 1;
                                         } else if (index === 1) {
                                             Timer_decleared_time.push(now.getHours());
                                         } else if (index === 2) {
@@ -280,7 +330,7 @@ function Ready_to_load() {
                                     }
                                     else if (!next_input) {
                                         if (inputss[index].value.trim() === '') {
-                                            inputss[index].value = 11;
+                                            inputss[index].value = 0;
                                         }
                                         Timer_decleared_time.push(now.getSeconds());
                                         Save_and_Update_Notes();
@@ -309,6 +359,7 @@ function Ready_to_load() {
             element.disabled = true;
         }
 
+        localStorage.setItem("Timer_decleared_time", JSON.stringify(Timer_decleared_time));
         Input_digits_size();
 
         Update_notes();
@@ -442,13 +493,14 @@ function Ready_to_load() {
         localStorage.setItem("Notes_HTML", JSON.stringify(Notes));
         const inputs = Notes_container_box.querySelectorAll('input');
         const inputs_length = inputs.length;
+        console.log("Length og inputs present in timer = ", inputs_length);
         let input_contents = [];
         for (let index = 0; index < inputs_length; index++) {
             const input_data = inputs[index].value;
             input_contents.push(input_data);
         }
         localStorage.setItem("Input_array", JSON.stringify(input_contents));
-        localStorage.setItem("Timer_decleared_time", JSON.stringify(Timer_decleared_time));
+        // localStorage.setItem("Timer_decleared_time", JSON.stringify(Timer_decleared_time));
 
     }
 }
