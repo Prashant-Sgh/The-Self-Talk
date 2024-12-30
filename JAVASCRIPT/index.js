@@ -97,7 +97,7 @@ function Ready_to_load() {
         }
         else if (ID === 'Add_a_new_note') {
             Add_A_New_Note();
-            Update_notes();
+            // Update_notes();
         }
         else if (event.target.classList.contains('Edit_button')) {
             //MAKES THE CONTENT EDITABLE.
@@ -166,12 +166,31 @@ function Ready_to_load() {
 
     function Update_TimerDeclearedTimeInLocalStorage(Notes_container, This_note_first_input, input_Index) {
         let Timer_decleared_time = JSON.parse(localStorage.getItem("Timer_decleared_time"));
-        // let All_note_inputs = document.querySelectorAll('#Notes_container input');
-        // let index = (Array.from(All_note_inputs)).indexOf(This_note_first_input);
-        // console.log("DELETE BUTTON CLICKED: index is from:", index, "to", index + 4);                            
-        // Timer_decleared_time.splice(index, 4);
+        let Input_array = JSON.parse(localStorage.getItem("Input_array"));
+
+        let Input_Array_length = (document.querySelectorAll("#Notes_container input")).length;
+
+
+        // Timer_decleared_time.splice(input_Index, 4); to match the length of input array.
+        // So Start = length of input array.
+        // And end = length of OT array. 
+        // Update the array in the end.
+
+        //First >> Timer_decleared_time.splice(input_Index, 4);
+        //Second > Timer_decleared_time.splice(Start, End);
+        //Third >> Update in LocalStorage.
+
+
+        let Start = Input_Array_length - 4;
+        let End = Timer_decleared_time.length;
+
+        Input_array.splice(input_Index, 4);
         Timer_decleared_time.splice(input_Index, 4);
+        // Timer_decleared_time.splice(Start, End);
+
         localStorage.setItem("Timer_decleared_time", JSON.stringify(Timer_decleared_time));
+        localStorage.setItem("Input_array", JSON.stringify(Input_array));
+
     }
 
 
@@ -316,12 +335,12 @@ function Ready_to_load() {
                                     const next_input = inputss[index + 1];
                                     if (next_input) {
                                         next_input.focus();
-                                        if (inputss[index].value.trim() === '') {
+                                        if ((inputss[index].value.trim() === '') && !(inputss[index].value.trim() === 0)) {
                                             inputss[index].value = 0;
                                         }
                                         if (index === 0) {
                                             Timer_decleared_time.push(now.getDate());
-                                            inputss[index].value = 1;
+                                            // inputss[index].value = 1;
                                         } else if (index === 1) {
                                             Timer_decleared_time.push(now.getHours());
                                         } else if (index === 2) {
@@ -333,7 +352,8 @@ function Ready_to_load() {
                                             inputss[index].value = 0;
                                         }
                                         Timer_decleared_time.push(now.getSeconds());
-                                        Save_and_Update_Notes();
+                                        localStorage.setItem("Timer_decleared_time", JSON.stringify(Timer_decleared_time));
+                                        Save_and_Update_Notes("Editable");
                                     }
                                 }
                             })
@@ -345,7 +365,7 @@ function Ready_to_load() {
     }
 
 
-    function Save_and_Update_Notes() {
+    function Save_and_Update_Notes(source = "None") {
         const Editables = document.querySelectorAll('.Editable');
         for (let elements = 0; elements < Editables.length; elements++) {
             const element = Editables[elements];
@@ -359,10 +379,10 @@ function Ready_to_load() {
             element.disabled = true;
         }
 
-        localStorage.setItem("Timer_decleared_time", JSON.stringify(Timer_decleared_time));
+        // localStorage.setItem("Timer_decleared_time", JSON.stringify(Timer_decleared_time));
         Input_digits_size();
 
-        Update_notes();
+        Update_notes(source);
     }
 
 
@@ -487,19 +507,24 @@ function Ready_to_load() {
 
 
     //REMEMBER NOTES
-    function Update_notes() {
+    function Update_notes(source = "None") {
         const Notes_container_box = document.getElementById('Notes_container');
         const Notes = Notes_container_box.innerHTML;
         localStorage.setItem("Notes_HTML", JSON.stringify(Notes));
-        const inputs = Notes_container_box.querySelectorAll('input');
-        const inputs_length = inputs.length;
-        console.log("Length og inputs present in timer = ", inputs_length);
-        let input_contents = [];
-        for (let index = 0; index < inputs_length; index++) {
-            const input_data = inputs[index].value;
-            input_contents.push(input_data);
+
+        if (source === "Editable") {
+            // console.log("XXXXXXXXXXXXXXXXXXXXX");
+            const inputs = Notes_container_box.querySelectorAll('input');
+            const inputs_length = inputs.length;
+            // console.log("Length og inputs present in timer = ", inputs_length);
+            let input_contents = [];
+            for (let index = 0; index < inputs_length; index++) {
+                const input_data = inputs[index].value;
+                input_contents.push(input_data);
+            }
+            localStorage.setItem("Input_array", JSON.stringify(input_contents));            
         }
-        localStorage.setItem("Input_array", JSON.stringify(input_contents));
+
         // localStorage.setItem("Timer_decleared_time", JSON.stringify(Timer_decleared_time));
 
     }
