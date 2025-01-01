@@ -235,6 +235,13 @@ function Bring_The_Timers(input_element, the_index) {
     let now = new Date();
     let New_Time;
     let Unit;
+    let month = now.getMonth() + 1;
+    if (month % 2 === 0) {
+        month = 30
+    }else if (month%2 === 1) {
+        month = 31;
+    }
+
     if ((the_index % 4) === 0) {
         New_Time = now.getDate();
         Unit = "Day";
@@ -263,7 +270,7 @@ function Bring_The_Timers(input_element, the_index) {
         // difference = 59 - Old_Time + New_Time;
 
         if (Unit === "Day") {
-            difference = 31 - Old_Time + New_Time;
+            difference = month  - Old_Time + New_Time;
         }
         else if (Unit === "Hour") {
             difference = 24 - Old_Time + New_Time;
@@ -281,7 +288,8 @@ function Bring_The_Timers(input_element, the_index) {
         // Answer = 59 - Answer;
 
         if (Unit === "Day") {
-            Answer = Given_Quota + difference;
+            Answer = Answer;
+            input_element.style.color = "red";
         }
         else if (Unit === "Hour") {
             Answer = 25 + Answer;
