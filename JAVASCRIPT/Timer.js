@@ -263,7 +263,7 @@ function Bring_The_Timers(input_element, the_index) {
         // difference = 59 - Old_Time + New_Time;
 
         if (Unit === "Day") {
-            difference = New_Time - Old_Time;
+            difference = 31 - Old_Time + New_Time;
         }
         else if (Unit === "Hour") {
             difference = 24 - Old_Time + New_Time;
@@ -276,13 +276,12 @@ function Bring_The_Timers(input_element, the_index) {
         }
     }
 
-
     let Answer = Given_Quota - difference;
     if (Answer < 0) {
         // Answer = 59 - Answer;
 
         if (Unit === "Day") {
-            Answer = Answer;
+            Answer = Given_Quota + difference;
         }
         else if (Unit === "Hour") {
             Answer = 25 + Answer;
@@ -298,4 +297,4 @@ function Bring_The_Timers(input_element, the_index) {
     // console.log("Given Quota:  >", Given_Quota, "Difference:  >", difference, "Answer:  >", Answer);
 
     input_element.value = Answer;
-}
+} 
