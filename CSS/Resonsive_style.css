@@ -2,12 +2,8 @@
     /* Styles for small screens (Oppo A5 or similar) */
 
     #Side_menu_container {
-        /* display: none; */
-    }
-
-    /* .class {
         display: none;
-    } */
+    }
 
     #background {
         /* display: flex; */
@@ -24,6 +20,12 @@
 
     #View_Side_Container {
         display: block;
+        width: 21px;
+        height: 13px;
+        /* border: 1px solid white; */
+        background-image: url(/ASSETS/list-colored.svg);
+        background-position: center;
+        background-repeat: no-repeat;
     }
 
     #User_profile {

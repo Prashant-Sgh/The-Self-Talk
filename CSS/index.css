@@ -28,11 +28,6 @@
     z-index: 15;
 }
 
-.yup{
-    display: none;
-    background-color: aqua;
-}
-
 #Chat_background 
 {
     position: fixed;

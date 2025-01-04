@@ -96,8 +96,27 @@ function Ready_to_load() {
             Menu_content.classList.toggle('show');
         }
         else if (ID === 'View_Side_Container') {
-            document.getElementById
+            if (document.getElementById('Side_menu_container').style.display === 'none') {
+                document.getElementById('Side_menu_container').style.display = 'flex';
+            }
+        else if (!(document.getElementById('Side_menu_container').style.display === 'none')) {
+            document.addEventListener('click', function (touch) {
+                if (touch.target.id === 'Chat_background' || touch.target.id === 'Chat_box' || touch.target.id === 'background' ||  'Message_input_box') {
+                    document.getElementById('Side_menu_container').style.display = 'none';
+                }
+            }, { once: true })
         }
+        }
+
+
+        // else if (document.getElementById('Side_menu_container').style.display === 'flex') {
+        //     document.addEventListener('click', function (touch) {
+        //         if (touch.target.id === 'Chat_background' || 'Chat_box' || 'background' || 'Message_input_box') {
+        //             document.getElementById('Side_menu_container').style.display = 'none';
+        //         }
+        //     }, { once: true })
+        // }
+
         else if (ID === 'Add_a_new_note') {
             Add_A_New_Note();
             // Update_notes();
@@ -525,7 +544,7 @@ function Ready_to_load() {
                 const input_data = inputs[index].value;
                 input_contents.push(input_data);
             }
-            localStorage.setItem("Input_array", JSON.stringify(input_contents));            
+            localStorage.setItem("Input_array", JSON.stringify(input_contents));
         }
 
         // localStorage.setItem("Timer_decleared_time", JSON.stringify(Timer_decleared_time));
