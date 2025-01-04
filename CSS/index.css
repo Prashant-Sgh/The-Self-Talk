@@ -10,6 +10,7 @@
     /* overflow: visible; */
     height: 100vh;
     width: 100vw;
+    display: flex;
 }
 
 #Side_menu_container 
@@ -25,6 +26,11 @@
     align-items: center;
     background-color: #011627;
     z-index: 15;
+}
+
+.yup{
+    display: none;
+    background-color: aqua;
 }
 
 #Chat_background 

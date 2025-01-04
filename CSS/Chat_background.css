@@ -7,6 +7,15 @@
     background: white;
 }
 
+#View_Side_Container{
+    display: none;
+    position: relative;
+    background-color: transparent;
+    border: none;
+    top: 12px;
+    left: -158px;
+}
+
 #Options_content {
     position: absolute;
     /* background-color: azure; */

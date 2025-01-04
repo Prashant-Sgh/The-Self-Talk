@@ -95,6 +95,9 @@ function Ready_to_load() {
             const Menu_content = document.getElementById('Menu_content');
             Menu_content.classList.toggle('show');
         }
+        else if (ID === 'View_Side_Container') {
+            document.getElementById
+        }
         else if (ID === 'Add_a_new_note') {
             Add_A_New_Note();
             // Update_notes();
