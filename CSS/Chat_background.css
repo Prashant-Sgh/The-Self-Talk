@@ -5,6 +5,10 @@
     aspect-ratio: 1;
     border-radius: 50%;
     background: white;
+    background-image: url(/ASSETS/yin_yang.jpg);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 #View_Side_Container{
@@ -144,6 +148,10 @@
     border-radius: 50%;
     margin-left: 10px;
     background-color: aliceblue;
+    background-image: url(/ASSETS/yin_yang.jpg);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 #Message_texts {
