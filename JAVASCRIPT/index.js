@@ -96,16 +96,24 @@ function Ready_to_load() {
             Menu_content.classList.toggle('show');
         }
         else if (ID === 'View_Side_Container') {
-            if (document.getElementById('Side_menu_container').style.display === 'none') {
-                document.getElementById('Side_menu_container').style.display = 'flex';
+            const sideMenu = document.getElementById('Side_menu_container');
+
+            // Check the current display property using getComputedStyle
+            const currentDisplay = window.getComputedStyle(sideMenu).display;
+
+            if (currentDisplay === 'none') {
+                // If Side_menu_container is hidden, show it
+                sideMenu.style.display = 'flex';
             }
-        else if (!(document.getElementById('Side_menu_container').style.display === 'none')) {
-            document.addEventListener('click', function (touch) {
-                if (touch.target.id === 'Chat_background' || touch.target.id === 'Chat_box' || touch.target.id === 'background' ||  'Message_input_box') {
-                    document.getElementById('Side_menu_container').style.display = 'none';
+            // If Side_menu_container is visible, listen for clicks to hide it
+            document.addEventListener('click', function (e) {
+                console.log("ZZZZZZZZZZZ", e.target.id);
+                // Check if the click target is any of the elements you want to hide the side menu for
+                if (['Chat_background', 'Chat_box', 'background', 'Message_input_box', 'Message_texts'].includes(e.target.id)) {
+                    sideMenu.style.display = 'none';
                 }
-            }, { once: true })
-        }
+            }, { once: true });  // This will remove the event listener after it is triggered once
+
         }
 
 
