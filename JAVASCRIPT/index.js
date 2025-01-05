@@ -1,4 +1,4 @@
-fetch('Chat_background.html')
+fetch('/Chat_background.html')
     .then(response => response.text())
     .then(data => {
         document.getElementById('Chat_background').innerHTML = data;
@@ -10,7 +10,7 @@ fetch('Chat_background.html')
 
 
 
-// fetch('Chat_box.html')
+// fetch('./Chat_box.html')
 //     .then(response => response.text())
 //     .then(data => {
 //         document.getElementById('Chat_box').innerHTML = data;
