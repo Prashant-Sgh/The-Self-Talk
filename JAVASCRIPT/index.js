@@ -1,4 +1,4 @@
-fetch('/Chat_background.html')
+fetch('Chat_background.html')
     .then(response => response.text())
     .then(data => {
         document.getElementById('Chat_background').innerHTML = data;
