@@ -1,4 +1,4 @@
-fetch('Chat_background.html')
+fetch('HTML/Chat_background.html')
     .then(response => response.text())
     .then(data => {
         document.getElementById('Chat_background').innerHTML = data;
@@ -23,7 +23,7 @@ fetch('Chat_background.html')
 
 
 
-fetch('Side_menu_container.html')
+fetch('HTML/Side_menu_container.html')
     .then(response => response.text())
     .then(data => {
         document.getElementById('Side_menu_container').innerHTML = data;
@@ -35,7 +35,7 @@ fetch('Side_menu_container.html')
 
 
 function fetchClock() {
-    fetch('clock.html')
+    fetch('HTML/clock.html')
         .then(response => response.text())
         .then(data => {
             document.getElementById('clock_container').innerHTML = data;
